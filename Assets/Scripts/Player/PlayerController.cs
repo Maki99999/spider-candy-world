@@ -18,7 +18,8 @@ namespace Default
         [SerializeField] private float jumpForce = 1f;
         public float speedCurrent { get; private set; }
         [SerializeField] private float gravity = 10f;
-        [SerializeField] private float airControl = 1f;
+        [SerializeField] private float slopeLimit = 80f;
+        [SerializeField] private float slideSpeed = 6f;
         private Vector3 moveDirection = Vector3.zero;
 
         [Space(10), SerializeField] private float heightNormal = 1.8f;
@@ -27,6 +28,8 @@ namespace Default
         [SerializeField] private Vector2 xRotationClamp = new Vector2(-50, 90);
 
         [Space(10)] private int frozenSem = 0;
+        private Vector3 hitNormal;
+        private bool isSliding = false;
         private bool isSneaking = false;
         private bool isSprinting = false;
 
@@ -80,6 +83,12 @@ namespace Default
                 FocusObject();
 
             Move(inputs);
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            hitNormal = hit.normal;
+            isSliding = Vector3.Angle(Vector3.up, hitNormal) >= slopeLimit;
         }
 
         void Rotate(float xRot, float yRot)
@@ -146,23 +155,28 @@ namespace Default
             input *= speedCurrent;
 
             //Jump and Gravity
+            if (tankControl)
+                moveDirection = transform.forward * input.y + transform.up * moveDirection.y;
+            else
+                moveDirection = transform.forward * input.y + transform.right * input.x + transform.up * moveDirection.y;
+
             if (charController.isGrounded)
             {
-                if (tankControl)
-                    moveDirection = transform.forward * input.y;
+                if (isSliding)
+                {
+                    //Slide
+                    moveDirection.x = ((1f - hitNormal.y) * hitNormal.x) * slideSpeed;
+                    moveDirection.z = ((1f - hitNormal.y) * hitNormal.z) * slideSpeed;
+                }
                 else
-                    moveDirection = transform.forward * input.y + transform.right * input.x;
-                if (inputs.axisJump > 0)
-                    moveDirection.y = jumpForce;
-                else
-                    moveDirection.y -= gravity;
+                {
+                    if (inputs.axisJump > 0)
+                        moveDirection.y = jumpForce;
+                    else
+                        moveDirection.y = -gravity;
+                }
             }
-            else
-            {
-                input *= airControl;
-                moveDirection = transform.forward * input.y + transform.right * input.x + transform.up * moveDirection.y;
-            }
-            moveDirection.y -= gravity * (Time.deltaTime / 2);
+            moveDirection.y -= gravity * Time.deltaTime;
 
             //Move and animate
             Vector3 oldPos = transform.localPosition;
@@ -174,8 +188,6 @@ namespace Default
             locomotionAnimator.SetBool("running", isMoving && isSprinting);
             locomotionAnimator.SetFloat("forward", input.y);
             locomotionAnimator.SetFloat("right", input.x);
-
-            moveDirection.y -= gravity * (Time.deltaTime / 2);
         }
 
         IEnumerator Sneak(bool willSneak)

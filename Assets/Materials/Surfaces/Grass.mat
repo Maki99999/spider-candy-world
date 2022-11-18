@@ -196,7 +196,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _Threshold: 0.51
+    - _Threshold: 0.66
     - _Tiling: 1
     - _TilingSide: 0.16
     - _TilingTop: 0.46

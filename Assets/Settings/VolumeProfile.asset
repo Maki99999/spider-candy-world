@@ -156,7 +156,7 @@ MonoBehaviour:
   active: 0
   patternIndex:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   ditherThreshold:
     m_OverrideState: 1
     m_Value: 1
@@ -165,7 +165,7 @@ MonoBehaviour:
     m_Value: 1
   ditherScale:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
 --- !u!114 &7928361278246828199
 MonoBehaviour:
   m_ObjectHideFlags: 3

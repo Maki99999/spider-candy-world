@@ -31,7 +31,7 @@ namespace Default
         private void Awake()
         {
             instance = this;
-            UpdateCameraMode();
+            UpdateCameraMode(true);
         }
 
         public void ResetCameraMode(ulong switcherId)
@@ -52,7 +52,7 @@ namespace Default
             return newSwitcherId;
         }
 
-        private void UpdateCameraMode()
+        private void UpdateCameraMode(bool instant = false)
         {
             currentCameraMode = cameraSwitcher.Count > 0 ? cameraSwitcher[cameraSwitcher.Count - 1].mode : defaultCameraMode;
 
@@ -87,7 +87,10 @@ namespace Default
 
             if (camera.parent != newCameraParent)
             {
-                StartCamTransition(newCameraParent);
+                if (instant)
+                    camera.SetParent(newCameraParent, false);
+                else
+                    StartCamTransition(newCameraParent);
                 NotifiyObservers();
             }
         }
