@@ -165,8 +165,16 @@ namespace Default
                 if (isSliding)
                 {
                     //Slide
-                    moveDirection.x = ((1f - hitNormal.y) * hitNormal.x) * slideSpeed;
-                    moveDirection.z = ((1f - hitNormal.y) * hitNormal.z) * slideSpeed;
+                    float slideX = ((1f - hitNormal.y) * hitNormal.x) * slideSpeed;
+                    float slideZ = ((1f - hitNormal.y) * hitNormal.z) * slideSpeed;
+
+                    if (Mathf.Sign(moveDirection.x) != Mathf.Sign(slideX))
+                        moveDirection.x = 0;
+                    if (Mathf.Sign(moveDirection.z) != Mathf.Sign(slideZ))
+                        moveDirection.z = 0;
+
+                    moveDirection.x += slideX;
+                    moveDirection.z += slideZ;
                 }
                 else
                 {
@@ -245,19 +253,30 @@ namespace Default
             }
         }
 
-        public void TeleportPlayer(Transform newPosition)
+        public void TeleportPlayer(Vector3 positionNew, Vector3 newRotation)
         {
-            if (isSprinting)
-                Sprint(false);
-
-            Vector3 positionNew = newPosition.position;
-
             bool oldCCState = charController.enabled;
             charController.enabled = false;
 
             transform.position = positionNew;
-            transform.rotation = Quaternion.Euler(0f, newPosition.rotation.eulerAngles.y, 0f);
-            eyeHeightTransform.localRotation = Quaternion.Euler(newPosition.rotation.eulerAngles.x, 0f, 0f);
+            transform.rotation = Quaternion.Euler(0f, newRotation.y, 0f);
+            eyeHeightTransform.localRotation = Quaternion.Euler(newRotation.x, 0f, 0f);
+
+            charController.enabled = oldCCState;
+        }
+
+        public void TeleportPlayer(Transform newPosition)
+        {
+            TeleportPlayer(newPosition.position, newPosition.eulerAngles);
+        }
+
+        public void TeleportAndRotateAround(Vector3 newPosition, Vector3 rotatePoint, float rotateAngle)
+        {
+            bool oldCCState = charController.enabled;
+            charController.enabled = false;
+
+            transform.position = newPosition;
+            transform.RotateAround(rotatePoint, Vector3.up, rotateAngle);
 
             charController.enabled = oldCCState;
         }

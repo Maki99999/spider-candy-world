@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class DialogueManager : MonoBehaviour
         if (isInDialogue)
         {
             player.SetFrozen(false);
-            text.SetText("");
+            text.HideText();
             text.SetFirstInvisibleIndex(0);
             anim.SetBool("Open", false);
 
@@ -70,7 +71,6 @@ public class DialogueManager : MonoBehaviour
         {
             isInDialogue = true;
             player.SetFrozen(true);
-            text.SetText("");
             text.SetFirstInvisibleIndex(0);
             currentAudioClips = GetCorrectAudioClips(voice);
             anim.SetBool("Open", true);
@@ -100,9 +100,12 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         text.SetText(sentence);
+        bool confirmPressed = false;
         bool skip = false;
 
-        for (int i = 0; i < sentence.Length; i++)
+        int sentenceLength = Regex.Replace(sentence, "<.*?>", "").Length;
+
+        for (int i = 0; i < sentenceLength; i++)
         {
             text.SetFirstInvisibleIndex(i);
 
@@ -111,11 +114,14 @@ public class DialogueManager : MonoBehaviour
                 PlayRandomSound();
 
             if (IsPressingConfirm())
+                confirmPressed = true;
+            if (confirmPressed && !IsPressingConfirm())
                 skip = true;
 
             if (!skip)
                 yield return new WaitForSeconds(1f / 60f);
         }
+        yield return new WaitUntil(() => (!IsPressingConfirm()));
     }
 
     void PlayRandomSound()
