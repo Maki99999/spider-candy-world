@@ -18,8 +18,7 @@ public class DialogueManager : MonoBehaviour
     public AudioClip[] audioClipsDefault;
     public AudioClip[] audioClipsPlayer;
     public AudioClip[] audioClipsDemon;
-
-    private AudioClip[] currentAudioClips;
+    public AudioClip[] audioClipsNeutral;
 
     private int every4thLetter = -1;
     private int currentAudioSource = -1;
@@ -72,7 +71,6 @@ public class DialogueManager : MonoBehaviour
             isInDialogue = true;
             player.SetFrozen(true);
             text.SetFirstInvisibleIndex(0);
-            currentAudioClips = GetCorrectAudioClips(voice);
             anim.SetBool("Open", true);
 
             if (camPos != null)
@@ -87,7 +85,7 @@ public class DialogueManager : MonoBehaviour
 
             foreach (string sentence in texts)
             {
-                yield return TypeSentence(sentence);
+                yield return TypeSentence(voice, sentence);
 
                 yield return new WaitUntil(() => (IsPressingConfirm()));
                 yield return new WaitUntil(() => (!IsPressingConfirm()));
@@ -97,7 +95,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    IEnumerator TypeSentence(string sentence)
+    IEnumerator TypeSentence(DialogueVoice voice, string sentence)
     {
         text.SetText(sentence);
         bool confirmPressed = false;
@@ -111,7 +109,7 @@ public class DialogueManager : MonoBehaviour
 
             every4thLetter = (every4thLetter + 1) % 4;
             if (!skip && every4thLetter == 0)
-                PlayRandomSound();
+                PlayRandomSound(voice);
 
             if (IsPressingConfirm())
                 confirmPressed = true;
@@ -124,8 +122,10 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitUntil(() => (!IsPressingConfirm()));
     }
 
-    void PlayRandomSound()
+    void PlayRandomSound(DialogueVoice voice)
     {
+        AudioClip[] currentAudioClips = GetCorrectAudioClips(voice);
+
         for (int i = 0; i < audioSources.Count; i++)
         {
             if (!audioSources[i].isPlaying)
@@ -141,7 +141,11 @@ public class DialogueManager : MonoBehaviour
 
         if (!audioSource.isPlaying)
         {
-            audioSource.pitch = 1f + Random.Range(-.2f, .2f);
+            if (voice == DialogueVoice.NEUTRAL)
+                audioSource.pitch = 1f;
+            else
+                audioSource.pitch = 1f + Random.Range(-.2f, .2f);
+
             audioSource.clip = currentAudioClips[Random.Range(0, currentAudioClips.Length)];
             audioSource.Play();
         }
@@ -157,6 +161,8 @@ public class DialogueManager : MonoBehaviour
                 return audioClipsPlayer;
             case DialogueVoice.DEMON:
                 return audioClipsDemon;
+            case DialogueVoice.NEUTRAL:
+                return audioClipsNeutral;
             default:
                 return audioClipsDefault;
         }
@@ -184,4 +190,5 @@ public enum DialogueVoice
     DEFAULT,
     PLAYER,
     DEMON,
+    NEUTRAL,
 }

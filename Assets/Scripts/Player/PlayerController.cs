@@ -270,6 +270,11 @@ namespace Default
             TeleportPlayer(newPosition.position, newPosition.eulerAngles);
         }
 
+        public void TeleportPlayerCameraView(Transform newPosition)
+        {
+            TeleportPlayer(newPosition.position - (isSneaking ? heightSneaking : heightNormal) * Vector3.up, newPosition.eulerAngles);
+        }
+
         public void TeleportAndRotateAround(Vector3 newPosition, Vector3 rotatePoint, float rotateAngle)
         {
             bool oldCCState = charController.enabled;

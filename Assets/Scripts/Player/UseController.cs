@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Default
 {
@@ -10,9 +9,11 @@ namespace Default
         public float range = 2.5f;
         public LayerMask mask;
 
+        public GameObject uiIndicator;
+
         private bool lastPress = false;
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             if (!isActiveAndEnabled)
                 return;
@@ -22,7 +23,7 @@ namespace Default
 
             //Get useable GameObject and maybe use it
             RaycastHit hit;
-            if (useKey && !lastPress && Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
             {
                 GameObject hitObject = hit.collider.gameObject;
                 if (hitObject.CompareTag("Useable"))
@@ -35,13 +36,26 @@ namespace Default
                     }
                     else
                     {
+                        if (!uiIndicator.activeSelf)
+                            uiIndicator.SetActive(true);
+
                         if (useKey && !lastPress)
                             useable.Use();
                     }
                 }
             }
+            else
+            {
+                uiIndicator.SetActive(false);
+            }
 
             lastPress = useKey;
+        }
+
+        private void OnDisable()
+        {
+            if (uiIndicator != null)
+                uiIndicator.SetActive(false);
         }
     }
 
