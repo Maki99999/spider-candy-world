@@ -13,4 +13,9 @@ public class InputManager : MonoBehaviour
     {
         return Input.GetKey(KeyCode.Return);
     }
+
+    public static bool PressingZoom()
+    {
+        return Input.GetKey(KeyCode.Mouse2);
+    }
 }

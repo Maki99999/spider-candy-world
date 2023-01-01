@@ -127,11 +127,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSide:
-        m_Texture: {fileID: 2800000, guid: 2fb8a64d437deb646a5ef087a0e77e5c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 600c6651b9dc67140a035b893bd5b081, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureTop:
-        m_Texture: {fileID: 2800000, guid: 2fb8a64d437deb646a5ef087a0e77e5c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 600c6651b9dc67140a035b893bd5b081, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Triplanar_3340d899aabc445bb628787efd4237bc_Texture_1:
@@ -198,8 +198,8 @@ Material:
     - _Surface: 0
     - _Threshold: 0.51
     - _Tiling: 1
-    - _TilingSide: 0.2
-    - _TilingTop: 0.2
+    - _TilingSide: 1
+    - _TilingTop: 1
     - _VertexResolution: 16
     - _WorkflowMode: 1
     - _ZWrite: 1
