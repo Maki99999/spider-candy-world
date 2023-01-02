@@ -44,10 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04395d498696824581256a7e44e6aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 2.5
+  range: 3
   mask:
     serializedVersion: 2
     m_Bits: 8192
+  uiIndicator: {fileID: 0}
 --- !u!1 &726246159
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +155,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: d668e6bf494f7f94f9ee8f67d749417c,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: b0039ef2de2f68642a7249834e0d9a4e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c015fe8c213dfab46b48d0c96dc71d7a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -253,7 +254,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BitDepth: 16
-  BitRate: 8192
+  BitRate: 4096
+--- !u!1 &4421692945037023109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1283748399471875032}
+  - component: {fileID: 8531342215870246845}
+  m_Layer: 0
+  m_Name: Shadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1283748399471875032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421692945037023109}
+  m_LocalRotation: {x: 0.70710653, y: -0, z: -0.000000029802319, w: 0.7071072}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1902744661919506781}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &8531342215870246845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421692945037023109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 32a37f64bc102ac499227d07580f38c7, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 0.8
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 5}
+  m_Size: {x: 1, y: 1, z: 10}
+  m_FadeFactor: 1
 --- !u!1 &5637170075765299024
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +401,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.8
   m_Radius: 0.33
-  m_SlopeLimit: 45
+  m_SlopeLimit: 46
   m_StepOffset: 0.2
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -365,20 +421,21 @@ MonoBehaviour:
   focusedObject: {fileID: 0}
   mouseSensitivityX: 2
   mouseSensitivityY: 2
-  tankControl: 1
+  tankControl: 0
   tankControlRotationSpeed: 120
-  speedNormal: 1.5
-  speedSneaking: 1.3
-  speedSprinting: 3
-  jumpForce: 0
+  speedNormal: 8
+  speedSneaking: 4
+  speedSprinting: 12
+  jumpForce: 5
   gravity: 10
-  airControl: 1
+  slopeLimit: 46
+  slideSpeed: 6
   heightNormal: 1.7
-  heightSneaking: 1.4
+  heightSneaking: 0.85
   fOVController: {fileID: 0}
   xRotationClamp: {x: -50, y: 70}
   crosshair: {fileID: 0}
-  locomotionAnimator: {fileID: 5514592755802077991}
+  locomotionAnimator: {fileID: 0}
   charController: {fileID: 5637170076384704624}
   eyeHeightTransform: {fileID: 5637170075765299023}
   useController: {fileID: 493265044}
@@ -474,6 +531,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 635547659545568360, guid: 640f7ce8619d58340a270eda6d123c3f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 640f7ce8619d58340a270eda6d123c3f,
         type: 3}
       propertyPath: m_Name
@@ -484,6 +546,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 740d0264af934ff4a8289fb0a80e0af3, type: 2}
+    - target: {fileID: 8929094647171942741, guid: 640f7ce8619d58340a270eda6d123c3f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 640f7ce8619d58340a270eda6d123c3f, type: 3}
 --- !u!1 &1237426243730406375 stripped
@@ -532,17 +599,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d8af405e93e134d8fc523b7525ffa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manualMode: 1
+  mode: 2
+  playerController: {fileID: 5637170076384704625}
   characterController: {fileID: 5637170076384704624}
   footstepSound: {fileID: 3745743529154400068}
   audioClips:
-  - {fileID: 8300000, guid: b0039ef2de2f68642a7249834e0d9a4e, type: 3}
-  - {fileID: 8300000, guid: c17caba92191794468cb0b334ce820e9, type: 3}
-  - {fileID: 8300000, guid: 6a075cc8de5fb5d4fbbf5d2a9621f2e9, type: 3}
-  - {fileID: 8300000, guid: 1b935ec6277498e4ba8b4cc4c33421e4, type: 3}
-  - {fileID: 8300000, guid: 8ac9c8ecd5817d247a2ac0b5f2bc7ff9, type: 3}
+  - {fileID: 8300000, guid: c015fe8c213dfab46b48d0c96dc71d7a, type: 3}
+  - {fileID: 8300000, guid: 72a9e986a8b30e14584916700427d3a2, type: 3}
+  - {fileID: 8300000, guid: c0342943886e12f479703ac36fabd9bb, type: 3}
+  - {fileID: 8300000, guid: ca88ef1cf89ab9842a3e0037f1e8d3ce, type: 3}
   audioPitchVariation: 0.15
   distanceBtwnFootstepsSqrt: 0.01
+  timeBtwnFootsteps: 3
 --- !u!4 &1902744661919506781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 640f7ce8619d58340a270eda6d123c3f,
