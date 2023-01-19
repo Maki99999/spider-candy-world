@@ -10,6 +10,8 @@ public class AmbientManager : MonoBehaviour
     [SerializeField] private AudioClip[] clips;
     private Vector2 secondsBtwnAmbientClips = new Vector2(1000, 1000);
 
+    private Coroutine ambientColorCoroutine;
+
     private void Awake()
     {
         instance = this;
@@ -35,7 +37,25 @@ public class AmbientManager : MonoBehaviour
 
     public void ChangeAmbientColor(Color color)
     {
-        RenderSettings.ambientLight = color;
+        if (ambientColorCoroutine != null)
+            StopCoroutine(ambientColorCoroutine);
+
+        ambientColorCoroutine = StartCoroutine(AmbientColorTransition(color));
+    }
+
+    private IEnumerator AmbientColorTransition(Color color)
+    {
+        Color oldColor = RenderSettings.ambientLight;
+
+        float rate = 1f / 0.8f;
+        float fSmooth;
+        for (float f = 0f; f <= 1f; f += rate * Time.deltaTime)
+        {
+            fSmooth = 1 - Mathf.Pow(1 - f, 3);
+            RenderSettings.ambientLight = Color.Lerp(oldColor, color, f);
+
+            yield return null;
+        }
     }
 
     private IEnumerator RandomSound()

@@ -6,6 +6,8 @@ namespace Default
 {
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerController instance { get; private set; }
+
         [HideInInspector] public Transform focusedObject;
         [SerializeField] private float mouseSensitivityX = 2f;
         [SerializeField] private float mouseSensitivityY = 2f;
@@ -17,6 +19,7 @@ namespace Default
         [SerializeField] private float speedSprinting = 8f;
         [SerializeField] private float jumpForce = 1f;
         public float speedCurrent { get; private set; }
+        public float speedMultiplier = 1;
         [SerializeField] private float gravity = 10f;
         [SerializeField] private float slopeLimit = 80f;
         [SerializeField] private float slideSpeed = 6f;
@@ -32,6 +35,7 @@ namespace Default
         private bool isSliding = false;
         private bool isSneaking = false;
         private bool isSprinting = false;
+        private bool fallDown = false;
 
         [Space(10), SerializeField] private GameObject crosshair;
         [SerializeField] private Animator locomotionAnimator;
@@ -40,11 +44,10 @@ namespace Default
         [SerializeField] private Transform eyeHeightTransform;
         [SerializeField] private UseController useController;
 
-        void Start()
+        void Awake()
         {
-            speedCurrent = speedNormal;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            instance = this;
+            speedCurrent = speedNormal * speedMultiplier;
             Time.timeScale = 1;
             SetFrozen(false);
         }
@@ -130,7 +133,7 @@ namespace Default
             else
             {
                 if (isSneaking)
-                    StartCoroutine(Sneak(false));
+                    TryUnsneak();
 
                 if (!isSneaking)
                 {
@@ -148,6 +151,7 @@ namespace Default
                 }
             }
             speedCurrent = isSneaking ? speedSneaking : isSprinting ? speedSprinting : speedNormal;
+            speedCurrent *= speedMultiplier;
 
             //Normalize input and add speed
             Vector2 input = new Vector2(inputs.axisHorizontal, inputs.axisVertical);
@@ -185,11 +189,19 @@ namespace Default
                 }
             }
             moveDirection.y -= gravity * Time.deltaTime;
+            if (fallDown && moveDirection.y > 0)
+            {
+                fallDown = !fallDown;
+                moveDirection.y = 0;
+            }
 
             //Move and animate
             Vector3 oldPos = transform.localPosition;
             charController.Move(moveDirection * Time.deltaTime);
             Vector3 deltaPos = oldPos - transform.localPosition;
+
+            if (moveDirection.y > 0 && deltaPos.y == 0)
+                fallDown = true;
 
             bool isMoving = (inputs.axisHorizontal > 0.1f || inputs.axisVertical > 0.1f || inputs.axisHorizontal < -0.1f || inputs.axisVertical < -0.1f) && !(deltaPos.y > 0.1f || deltaPos.y < -0.1f) && deltaPos.sqrMagnitude > 0f;
             locomotionAnimator.SetBool("walking", isMoving);
@@ -198,7 +210,14 @@ namespace Default
             locomotionAnimator.SetFloat("right", input.x);
         }
 
-        IEnumerator Sneak(bool willSneak)
+        private void TryUnsneak()
+        {
+            RaycastHit hit;
+            if (!Physics.SphereCast(transform.position, charController.radius, Vector3.up, out hit, heightNormal))
+                StartCoroutine(Sneak(false));
+        }
+
+        private IEnumerator Sneak(bool willSneak)
         {
             isSneaking = willSneak;
             charController.height = willSneak ? heightSneaking : heightNormal;
@@ -261,6 +280,16 @@ namespace Default
             transform.position = positionNew;
             transform.rotation = Quaternion.Euler(0f, newRotation.y, 0f);
             eyeHeightTransform.localRotation = Quaternion.Euler(newRotation.x, 0f, 0f);
+
+            charController.enabled = oldCCState;
+        }
+
+        public void TeleportPlayer(Vector3 positionNew)
+        {
+            bool oldCCState = charController.enabled;
+            charController.enabled = false;
+
+            transform.position = positionNew;
 
             charController.enabled = oldCCState;
         }

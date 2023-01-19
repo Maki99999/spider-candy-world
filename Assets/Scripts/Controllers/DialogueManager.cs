@@ -27,7 +27,6 @@ public class DialogueManager : MonoBehaviour
     private bool isPressing = false;
     public bool isInDialogue { get; private set; } = false;
     private Transform currentCamPos = null;
-    private ulong currentCamPosId = 0;
 
     private void Start()
     {
@@ -51,8 +50,7 @@ public class DialogueManager : MonoBehaviour
 
             if (currentCamPos != null)
             {
-                Default.CameraController.instance.RemoveStaticCamPos(currentCamPos);
-                Default.CameraController.instance.ResetCameraMode(currentCamPosId);
+                CameraController.instance.RemoveCamera(currentCamPos);
             }
 
             isInDialogue = false;
@@ -74,10 +72,7 @@ public class DialogueManager : MonoBehaviour
             anim.SetBool("Open", true);
 
             if (camPos != null)
-            {
-                Default.CameraController.instance.AddStaticCamPos(camPos, null, null, "Dialogue");
-                currentCamPosId = Default.CameraController.instance.SetCameraMode(Default.CameraMode.STATIC);
-            }
+                CameraController.instance.AddCamera(camPos);
             currentCamPos = camPos;
 
             yield return new WaitUntil(() => (!IsPressingConfirm()));

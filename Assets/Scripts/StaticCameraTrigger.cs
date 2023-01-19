@@ -10,13 +10,12 @@ namespace Default
         public Transform cameraTransform;
         public UnityEvent eventSwapIn;
         public UnityEvent eventSwapOut;
-        public string cameraName = "";
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                CameraController.instance.AddStaticCamPos(cameraTransform, eventSwapIn, eventSwapOut, cameraName);
+                CameraController.instance.AddCamera(cameraTransform, eventSwapIn, eventSwapOut, false);
             }
         }
 
@@ -24,7 +23,7 @@ namespace Default
         {
             if (other.CompareTag("Player"))
             {
-                CameraController.instance.RemoveStaticCamPos(cameraTransform);
+                CameraController.instance.RemoveCamera(cameraTransform);
             }
         }
     }

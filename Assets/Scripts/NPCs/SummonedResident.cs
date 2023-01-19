@@ -28,8 +28,7 @@ public class SummonedResident : MonoBehaviour, Default.Useable
 
     private IEnumerator Cutscene()
     {
-        Default.CameraController.instance.AddStaticCamPos(dialogueCameraPos, null, null, "Dialogue");
-        ulong camPosId = Default.CameraController.instance.SetCameraMode(Default.CameraMode.STATIC);
+        CameraController.instance.AddCamera(dialogueCameraPos);
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(player.transform.position, out hit, 4f, NavMesh.AllAreas))
@@ -45,7 +44,6 @@ public class SummonedResident : MonoBehaviour, Default.Useable
 
         yield return DialogueManager.instance.StartDialogue(dialogueTextPost, dialogueVoice);
 
-        Default.CameraController.instance.RemoveStaticCamPos(dialogueCameraPos);
-        Default.CameraController.instance.ResetCameraMode(camPosId);
+        CameraController.instance.RemoveCamera(dialogueCameraPos);
     }
 }

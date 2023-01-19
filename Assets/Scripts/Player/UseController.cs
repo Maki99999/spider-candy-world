@@ -43,6 +43,10 @@ namespace Default
                             useable.Use();
                     }
                 }
+                else
+                {
+                    uiIndicator.SetActive(false);
+                }
             }
             else
             {

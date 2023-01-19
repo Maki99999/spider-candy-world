@@ -63,14 +63,17 @@ public class MusicManager : MonoBehaviour
             }
         }
 
-        audioSource.clip = songs[currentClipNum];
-        audioSource.Play();
-
-        for (float f = 0f; f <= 1f; f += rate * Time.deltaTime)
+        if (songs.Length > 0)
         {
-            fSmooth = Mathf.SmoothStep(0f, 1f, f);
-            audioSource.volume = Mathf.Lerp(0, maxVolume, fSmooth);
-            yield return null;
+            audioSource.clip = songs[currentClipNum];
+            audioSource.Play();
+
+            for (float f = 0f; f <= 1f; f += rate * Time.deltaTime)
+            {
+                fSmooth = Mathf.SmoothStep(0f, 1f, f);
+                audioSource.volume = Mathf.Lerp(0, maxVolume, fSmooth);
+                yield return null;
+            }
         }
         inTransition = false;
     }
