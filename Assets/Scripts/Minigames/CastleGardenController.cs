@@ -6,7 +6,7 @@ public class CastleGardenController : MonoBehaviour
 {
     public static CastleGardenController instance { get; private set; }
 
-    public Default.PlayerController player;
+    public PlayerController player;
     public Animator fadeAnim;
 
     public List<string> caughtDialogue;

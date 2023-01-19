@@ -42,7 +42,7 @@ public class LabController : MonoBehaviour
 
         Vector2 randomPos = Random.onUnitSphere;
         Vector3 randomPos3 = new Vector3(Mathf.Abs(randomPos.x) * -1, 0, randomPos.y);
-        audio.transform.position = Default.PlayerController.instance.transform.position + randomPos3;
+        audio.transform.position = PlayerController.instance.transform.position + randomPos3;
 
         audio.clip = clip;
         audio.pitch = Random.Range(0.7f, 1f);
@@ -71,13 +71,13 @@ public class LabController : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
         monsterAnim.SetBool("Eat", true);
-        Default.PlayerController.instance.focusedObject = monsterAnim.transform;
+        PlayerController.instance.focusedObject = monsterAnim.transform;
         anim.SetTrigger("Off");
         areaController.SetActive(true);
 
         yield return new WaitForSeconds(3f);
         monsterAnim.SetBool("Eat", false);
-        Default.PlayerController.instance.focusedObject = null;
+        PlayerController.instance.focusedObject = null;
         prison.SetActive(false);
 
         yield return ChasePlayer();
@@ -95,7 +95,7 @@ public class LabController : MonoBehaviour
         waiting = true;
         while (waiting)
         {
-            var lookPos = Default.PlayerController.instance.transform.position - monster.position;
+            var lookPos = PlayerController.instance.transform.position - monster.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
             monster.rotation = rotation;
@@ -114,15 +114,15 @@ public class LabController : MonoBehaviour
 
     private IEnumerator Tutorial()
     {
-        Default.PlayerController.instance.SetFrozen(true);
-        yield return Default.PlayerController.instance.LookAt(monsterAnim.transform.position, 1);
+        PlayerController.instance.SetFrozen(true);
+        yield return PlayerController.instance.LookAt(monsterAnim.transform.position, 1);
 
         yield return new WaitForSeconds(5f);
 
         tutorialGuyExplosion.SetActive(true);
         yield return new WaitForSeconds(.3f);
         tutorialGuy.SetActive(true);
-        yield return Default.PlayerController.instance.LookAt(tutorialGuyLookAt.position, 1);
+        yield return PlayerController.instance.LookAt(tutorialGuyLookAt.position, 1);
 
         yield return new WaitForSeconds(2f);//TODO: speech
         tutorialGuyExplosion.SetActive(false);
@@ -133,7 +133,7 @@ public class LabController : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         tutorialGuy.SetActive(false);
 
-        Default.PlayerController.instance.SetFrozen(false);
+        PlayerController.instance.SetFrozen(false);
         yield return new WaitForSeconds(1f);
         tutorialGuyExplosion.SetActive(false);
     }

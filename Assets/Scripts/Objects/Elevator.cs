@@ -87,7 +87,7 @@ public class Elevator : MonoBehaviour
 
         CameraController.instance.AddCamera(keypadCamPos, null, null, true);
         InputManager.instance.FreeCursor(this);
-        Default.PlayerController.instance.SetFrozen(true);
+        PlayerController.instance.SetFrozen(true);
 
         inputLevel = -1;
         waitingForInput = true;
@@ -155,7 +155,7 @@ public class Elevator : MonoBehaviour
     private IEnumerator ElevatorAnim()
     {
         waitingForInput = false;
-        Default.PlayerController.instance.TeleportPlayer(playerElevatorPos);
+        PlayerController.instance.TeleportPlayer(playerElevatorPos);
         CameraController.instance.RemoveCamera(keypadCamPos);
         InputManager.instance.LockCursor(this);
         yield return new WaitForSeconds(1f);
@@ -206,7 +206,7 @@ public class Elevator : MonoBehaviour
     {
         CameraController.instance.RemoveCamera(keypadCamPos);
         InputManager.instance.LockCursor(this);
-        Default.PlayerController.instance.SetFrozen(false);
+        PlayerController.instance.SetFrozen(false);
         waitingForInput = false;
         busy = false;
     }

@@ -21,7 +21,7 @@ public class FingerGun : MonoBehaviour
             nextShootTime = Time.time + cooldown;
 
             var inst = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation, ProjectileCollector.instance.transform);
-            Physics.IgnoreCollision(inst.GetComponent<Collider>(), Default.PlayerController.instance.GetComponent<Collider>());
+            Physics.IgnoreCollision(inst.GetComponent<Collider>(), PlayerController.instance.GetComponent<Collider>());
         }
     }
 }

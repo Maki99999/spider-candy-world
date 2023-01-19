@@ -17,7 +17,7 @@ public class PartyGuard : MonoBehaviour
 
     void Update()
     {
-        Vector3 playerPos = Default.PlayerController.instance.transform.position;
+        Vector3 playerPos = PlayerController.instance.transform.position;
         float distanceSqr = (playerPos - transform.position).sqrMagnitude;
         if (playerPos.y > 2f &&
             distanceSqr < distanceSqrMinMax.y)

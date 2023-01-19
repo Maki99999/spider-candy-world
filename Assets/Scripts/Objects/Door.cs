@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Default;
 using UnityEngine;
 
-public class Door : MonoBehaviour, Default.Useable
+public class Door : MonoBehaviour, Useable
 {
     public Animator doorAnim;
     public AudioSource doorAudio;

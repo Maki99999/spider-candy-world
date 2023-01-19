@@ -29,7 +29,7 @@ public class ImpossibleCorner : MonoBehaviour
 
     public void Teleport()
     {
-        Default.PlayerController.instance.TeleportPlayer(Default.PlayerController.instance.transform.position + teleportOffset);
+        PlayerController.instance.TeleportPlayer(PlayerController.instance.transform.position + teleportOffset);
     }
 
     [System.Serializable]

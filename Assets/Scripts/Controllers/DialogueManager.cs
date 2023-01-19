@@ -7,7 +7,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance { get; private set; }
 
-    public Default.PlayerController player;
+    public PlayerController player;
 
     public Animator anim;
     public DialogueText text;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueOnUse : MonoBehaviour, Default.Useable
+public class DialogueOnUse : MonoBehaviour, Useable
 {
     public List<string> dialogueText;
     public DialogueVoice dialogueVoice = DialogueVoice.DEFAULT;

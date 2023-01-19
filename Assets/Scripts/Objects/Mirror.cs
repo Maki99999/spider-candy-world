@@ -66,7 +66,7 @@ public class Mirror : MonoBehaviour
         {
             var dist = new Plane(-transform.forward, transform.position).GetDistanceToPoint(other.transform.position);
             if (dist > 0f)
-                other.GetComponent<Default.PlayerController>().TeleportPlayerCameraView(tunnelCam.transform);
+                other.GetComponent<PlayerController>().TeleportPlayerCameraView(tunnelCam.transform);
         }
     }
 }

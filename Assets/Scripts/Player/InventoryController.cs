@@ -2,47 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Default
+public class InventoryController : MonoBehaviour
 {
-    public class InventoryController : MonoBehaviour
+    public Transform itemHoldPosition;
+    private List<string> items = new List<string>();
+
+    public void AddItem(Transform item, string itemName)
     {
-        public Transform itemHoldPosition;
-        private List<string> items = new List<string>();
+        StartCoroutine(SmoothPickup(item, itemName));
+    }
 
-        public void AddItem(Transform item, string itemName)
+    private IEnumerator SmoothPickup(Transform item, string itemName, float seconds = 1f)
+    {
+        Vector3 oldPos = item.position;
+        Quaternion oldRot = item.rotation;
+
+        float rate = 1f / seconds;
+        float fSmooth;
+        for (float f = 0f; f <= 1f; f += rate * Time.deltaTime)
         {
-            StartCoroutine(SmoothPickup(item, itemName));
+            fSmooth = Mathf.SmoothStep(0f, 1f, f);
+
+            item.position = Vector3.Lerp(oldPos, itemHoldPosition.position, fSmooth);
+            item.rotation = Quaternion.Lerp(oldRot, itemHoldPosition.rotation, fSmooth);
+
+            yield return null;
         }
 
-        private IEnumerator SmoothPickup(Transform item, string itemName, float seconds = 1f)
-        {
-            Vector3 oldPos = item.position;
-            Quaternion oldRot = item.rotation;
+        items.Add(itemName);
+        item.gameObject.SetActive(false);
+    }
 
-            float rate = 1f / seconds;
-            float fSmooth;
-            for (float f = 0f; f <= 1f; f += rate * Time.deltaTime)
-            {
-                fSmooth = Mathf.SmoothStep(0f, 1f, f);
+    public bool HasItem(string itemName)
+    {
+        return items.Contains(itemName);
+    }
 
-                item.position = Vector3.Lerp(oldPos, itemHoldPosition.position, fSmooth);
-                item.rotation = Quaternion.Lerp(oldRot, itemHoldPosition.rotation, fSmooth);
-
-                yield return null;
-            }
-
-            items.Add(itemName);
-            item.gameObject.SetActive(false);
-        }
-
-        public bool HasItem(string itemName)
-        {
-            return items.Contains(itemName);
-        }
-
-        public void RemoveItem(string itemName)
-        {
-            items.Remove(itemName);
-        }
+    public void RemoveItem(string itemName)
+    {
+        items.Remove(itemName);
     }
 }

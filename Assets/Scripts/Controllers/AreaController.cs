@@ -23,6 +23,6 @@ public class AreaController : MonoBehaviour
         MusicManager.instance.ChangeMusic(musicClips);
         AmbientManager.instance.ChangeAmbientClips(randomAmbientClips, secondsBtwnAmbientClips);
         AmbientManager.instance.ChangeAmbientColor(ambientColor);
-        Default.PlayerController.instance.speedMultiplier = speedMultiplier;
+        PlayerController.instance.speedMultiplier = speedMultiplier;
     }
 }

@@ -7,7 +7,7 @@ public class TeleportController : MonoBehaviour
 {
     public static TeleportController instance { get; private set; }
 
-    public Default.PlayerController player;
+    public PlayerController player;
     public Animator fadeAnim;
     public AudioSource teleportSound;
 

@@ -17,7 +17,7 @@ public class VentBreaking : MonoBehaviour
             triggered = true;
             anim.SetTrigger("Break");
             sound.Play();
-            StartCoroutine(Default.PlayerController.instance.MovePlayer(fallDownPos.position, 2.1f, true));
+            StartCoroutine(PlayerController.instance.MovePlayer(fallDownPos.position, 2.1f, true));
         }
     }
 }

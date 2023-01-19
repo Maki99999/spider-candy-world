@@ -7,11 +7,11 @@ public class LocalOffsetTeleporter : MonoBehaviour
     public Transform fromLocalSpace;
     public Transform toLocalSpace;
 
-    private Default.PlayerController player;
+    private PlayerController player;
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Default.PlayerController>();
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void OnTriggerEnter(Collider other)

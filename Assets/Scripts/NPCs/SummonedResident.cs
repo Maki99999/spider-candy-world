@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SummonedResident : MonoBehaviour, Default.Useable
+public class SummonedResident : MonoBehaviour, Useable
 {
     public List<string> dialogueTextPre;
     public List<string> dialogueTextMid;
@@ -12,7 +12,7 @@ public class SummonedResident : MonoBehaviour, Default.Useable
     public Transform dialogueCameraPos;
 
     [Space(10)]
-    public Default.PlayerController player;
+    public PlayerController player;
     public Animator anim;
 
     private bool used = false;

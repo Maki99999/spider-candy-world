@@ -16,8 +16,8 @@ public class HotelStartCutsceneManager : MonoBehaviour
         {
             triggered = true;
 
-            Default.PlayerController.instance.SetFrozen(true);
-            Default.PlayerController.instance.gameObject.SetActive(false);
+            PlayerController.instance.SetFrozen(true);
+            PlayerController.instance.gameObject.SetActive(false);
             CameraController.instance.AddCamera(cutsceneCamTransform, null, null, true, true);
             timeline.Play();
         }
@@ -25,9 +25,9 @@ public class HotelStartCutsceneManager : MonoBehaviour
 
     public void CutsceneFinished()
     {
-        Default.PlayerController.instance.gameObject.SetActive(true);
-        Default.PlayerController.instance.TeleportPlayer(standUpPos);
-        Default.PlayerController.instance.SetFrozen(false);
+        PlayerController.instance.gameObject.SetActive(true);
+        PlayerController.instance.TeleportPlayer(standUpPos);
+        PlayerController.instance.SetFrozen(false);
         CameraController.instance.RemoveCamera(cutsceneCamTransform, true);
     }
 }
