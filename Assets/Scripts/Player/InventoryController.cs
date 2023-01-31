@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
+    public static InventoryController instance;
+
     public Transform itemHoldPosition;
     private List<string> items = new List<string>();
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void AddItem(Transform item, string itemName)
     {

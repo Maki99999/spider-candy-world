@@ -8,6 +8,8 @@ public class LabController : MonoBehaviour
     public GameObject prison;
     public Animator monsterAnim;
     public GameObject areaController;
+    public GameObject monsterHitIndicator;
+    public GameObject teleporter;
 
     [Space(10)]
     public AudioSource[] audioSources;
@@ -15,12 +17,15 @@ public class LabController : MonoBehaviour
     public AudioSource audioSourceSpecial;
     public AudioSource audioSourceMonster;
     public AudioClip[] monsterStepSound;
+    public AudioClip monsterDeadSound;
 
     [Space(10)]
-    public GameObject tutorialGuy;
+    public MeDialogue tutorialGuy;
     public Transform tutorialGuyLookAt;
     public GameObject tutorialGuyExplosion;
-    public GameObject handGun;
+    public Animator handGun;
+    public AudioClip[] tutorialVoices;
+    public AudioClip tutorialVoiceShort;
 
     private bool triggered = false;
     private bool waiting = false;
@@ -55,9 +60,9 @@ public class LabController : MonoBehaviour
         anim.SetTrigger("Alert");
         yield return new WaitForSeconds(3f);
 
-        for (int i = 0; i < 1; i++)//TODO: 30
+        for (int i = 0; i < 25; i++)
         {
-            yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.7f));
 
             if (i == 12)
                 audioSourceSpecial.Play();
@@ -83,6 +88,11 @@ public class LabController : MonoBehaviour
         yield return ChasePlayer();
         yield return Tutorial();
         yield return ChasePlayer();
+        while (isActiveAndEnabled)
+        {
+            yield return TutorialShort();
+            yield return ChasePlayer();
+        }
     }
 
     private IEnumerator ChasePlayer()
@@ -93,13 +103,13 @@ public class LabController : MonoBehaviour
         Transform monster = audioSourceMonster.transform;
 
         waiting = true;
-        while (waiting)
+        while (waiting && isActiveAndEnabled)
         {
             var lookPos = PlayerController.instance.transform.position - monster.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
             monster.rotation = rotation;
-            monster.position += monster.forward * 0.8f;
+            monster.position += monster.forward * 0.55f;
 
             int newPose = Random.Range(0, poseCount);
             if (lastPose == newPose)
@@ -112,6 +122,32 @@ public class LabController : MonoBehaviour
         }
     }
 
+    private IEnumerator TutorialShort()
+    {
+        PlayerController.instance.SetFrozen(true);
+        yield return PlayerController.instance.LookAt(monsterAnim.transform.position, 1);
+
+        tutorialGuyExplosion.SetActive(true);
+        yield return new WaitForSeconds(.3f);
+        tutorialGuy.transform.parent.gameObject.SetActive(true);
+        yield return PlayerController.instance.LookAt(tutorialGuyLookAt.position, 1);
+        yield return new WaitForSeconds(0.5f);
+        tutorialGuyExplosion.SetActive(false);
+
+        AudioSource tutGuyAudSource = tutorialGuy.audioSource;
+        tutGuyAudSource.clip = tutorialVoiceShort;
+        tutGuyAudSource.Play();
+        yield return tutorialGuy.DialogueWait();
+
+        tutorialGuyExplosion.SetActive(true);
+        yield return new WaitForSeconds(.3f);
+        tutorialGuy.transform.parent.gameObject.SetActive(false);
+
+        PlayerController.instance.SetFrozen(false);
+        yield return new WaitForSeconds(2f);
+        tutorialGuyExplosion.SetActive(false);
+    }
+
     private IEnumerator Tutorial()
     {
         PlayerController.instance.SetFrozen(true);
@@ -121,27 +157,60 @@ public class LabController : MonoBehaviour
 
         tutorialGuyExplosion.SetActive(true);
         yield return new WaitForSeconds(.3f);
-        tutorialGuy.SetActive(true);
+        tutorialGuy.transform.parent.gameObject.SetActive(true);
         yield return PlayerController.instance.LookAt(tutorialGuyLookAt.position, 1);
 
-        yield return new WaitForSeconds(2f);//TODO: speech
+        AudioSource tutGuyAudSource = tutorialGuy.audioSource;
+        tutGuyAudSource.clip = tutorialVoices[0];
+        tutGuyAudSource.Play();
+        yield return tutorialGuy.DialogueWait();
+
         tutorialGuyExplosion.SetActive(false);
-        handGun.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        handGun.GetComponent<FingerGun>().enabled = true;
+        tutGuyAudSource.clip = tutorialVoices[1];
+        tutGuyAudSource.Play();
+        yield return new WaitForSeconds(.8f);
+        yield return tutorialGuy.DialogueWait();
+
+        handGun.SetTrigger("Shoot");
+        tutGuyAudSource.clip = tutorialVoices[2];
+        tutGuyAudSource.Play();
+        yield return new WaitForSeconds(1.2f);
+        yield return tutorialGuy.DialogueWait();
 
         tutorialGuyExplosion.SetActive(true);
         yield return new WaitForSeconds(.3f);
-        tutorialGuy.SetActive(false);
+        tutorialGuy.transform.parent.gameObject.SetActive(false);
 
         PlayerController.instance.SetFrozen(false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         tutorialGuyExplosion.SetActive(false);
     }
 
     public void CaughtPlayer()
     {
         waiting = false;
-        StartCoroutine(Tutorial()); //TODO: remove line
     }
 
+    public void MonsterHit()
+    {
+        StartCoroutine(MonsterHitIndicator());
+    }
+
+    public void MonsterDeath()
+    {
+        monsterAnim.SetBool("Dead", true);
+        areaController.SetActive(false);
+        AmbientManager.instance.ChangeAmbientColor(AmbientManager.instance.defaultColor);
+        audioSourceMonster.PlayOneShot(monsterDeadSound);
+        teleporter.SetActive(true);
+        enabled = false;
+    }
+
+    private IEnumerator MonsterHitIndicator()
+    {
+        monsterHitIndicator.SetActive(true);
+        yield return new WaitForSeconds(0.4f);
+        monsterHitIndicator.SetActive(false);
+    }
 }

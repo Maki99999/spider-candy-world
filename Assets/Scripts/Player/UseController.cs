@@ -26,9 +26,9 @@ public class UseController : MonoBehaviour
             GameObject hitObject = hit.collider.gameObject;
             if (hitObject.CompareTag("Useable"))
             {
-                Useable useable = hitObject.GetComponent<Useable>();
+                Useable[] useables = hitObject.GetComponents<Useable>();
 
-                if (useable == null)
+                if (useables.Length == 0)
                 {
                     Debug.LogError("Can't find 'Useable' script.");
                 }
@@ -38,7 +38,10 @@ public class UseController : MonoBehaviour
                         uiIndicator.SetActive(true);
 
                     if (useKey && !lastPress)
-                        useable.Use();
+                    {
+                        foreach (var useable in useables)
+                            useable.Use();
+                    }
                 }
             }
             else

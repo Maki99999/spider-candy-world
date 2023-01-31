@@ -12,9 +12,9 @@ public class FingerGun : MonoBehaviour
 
     private float nextShootTime = 0;
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetAxis("Primary") > 0 && Time.time > nextShootTime)
+        if (!PlayerController.instance.IsFrozen() && Input.GetAxis("Primary") > 0 && Time.time > nextShootTime)
         {
             anim.SetTrigger("Shoot");
             sound.Play();
@@ -23,5 +23,15 @@ public class FingerGun : MonoBehaviour
             var inst = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation, ProjectileCollector.instance.transform);
             Physics.IgnoreCollision(inst.GetComponent<Collider>(), PlayerController.instance.GetComponent<Collider>());
         }
+    }
+
+    private void OnEnable()
+    {
+        anim.SetBool("Hidden", false);
+    }
+
+    private void OnDisable()
+    {
+        anim.SetBool("Hidden", true);
     }
 }

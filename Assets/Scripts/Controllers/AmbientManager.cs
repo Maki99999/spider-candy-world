@@ -6,6 +6,8 @@ public class AmbientManager : MonoBehaviour
 {
     public static AmbientManager instance { get; private set; }
 
+    public Color defaultColor;
+
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] clips;
     private Vector2 secondsBtwnAmbientClips = new Vector2(1000, 1000);
@@ -35,12 +37,15 @@ public class AmbientManager : MonoBehaviour
         StartCoroutine(RandomSound());
     }
 
-    public void ChangeAmbientColor(Color color)
+    public void ChangeAmbientColor(Color color, bool instant = false)
     {
         if (ambientColorCoroutine != null)
             StopCoroutine(ambientColorCoroutine);
 
-        ambientColorCoroutine = StartCoroutine(AmbientColorTransition(color));
+        if (instant)
+            RenderSettings.ambientLight = color;
+        else
+            ambientColorCoroutine = StartCoroutine(AmbientColorTransition(color));
     }
 
     private IEnumerator AmbientColorTransition(Color color)

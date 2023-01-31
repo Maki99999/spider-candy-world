@@ -9,6 +9,7 @@ public class EventOnUse : MonoBehaviour, Useable
 
     public void Use()
     {
-        onUse.Invoke();
+        if (isActiveAndEnabled)
+            onUse.Invoke();
     }
 }
