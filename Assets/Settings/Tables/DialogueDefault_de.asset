@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: DialogueDefault_de
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: ed9660652369fd1498482c5d6bd15153, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 59997802708992
+    m_Localized: "<name=Default>Hey Leute!\r\n<name=Default>Wir sind heute wieder
+      im Maki-Hotel,\r\n<name=Default>das gr\xF6\xDFte und einzige Hotel in der Umgebung.\r\n<name=Default>Und
+      wie ich sehe, haben wir heute eine nette junge Dame als Gast in unserem Hotel.\r\n<name=Default>Sehr
+      Cool.\r\n<name=Default>Hallo, wie ist denn dein Name?\r\n<name=Default>...\r\n<name=Default>Ahaha,
+      wohl nicht sehr gespr\xE4chig, kann ich verstehen.\r\n<name=Default>Ich erkenne,
+      dass du hier neu bist.\r\n<name=Default>Hier ist mal eine Brosch\xFCre.\r\n<name=Default>Ich
+      kann dir ja mal coole Fun Facts zu dem Hotel geben.\r\n<name=Default>Wusstest
+      du schon, dass das Hotel \xFCber 99999 Stockwerke besitzt?\r\n<name=Default>Ja,
+      ich wei\xDF, sehr viel.\r\n<name=Default>Aber: So viele sind halt n\xF6tig,
+      weil das das einzige Hotel hier in der ganzen Welt ist.\r\n<name=Default>...\r\n<name=Default>Du
+      schaust 'n bisschen verwirrt aus.\r\n<name=Default>Fangen wir mal ein bisschen
+      weiter vorne an.\r\n<name=Default>Wir befinden uns hier in der Welt der Tr\xE4ume,
+      wo alles, was du willst, passieren kann.\r\n<name=Default>Ist das nicht toll?\r\n<name=Default>Ich
+      pers\xF6nlich hab' mir ja gew\xFCnscht, dass mir die ganze Welt hier geh\xF6rt.\r\n<name=Default>Und
+      deswegen hei\xDFt die Welt jetzt auch Maki-Welt.\r\n<name=Default>Cooler Name,
+      ich wei\xDF. Hehe.\r\n<name=Default>Mensch, irgendwie siehst du aus, als wenn
+      du aus der Traumwelt rausgehen willst.\r\n<name=Default>Kann ich irgendwie
+      nicht verstehen.\r\n<name=Default>Hmm.\r\n<name=Default>Ja, ich \xFCberleg
+      mal ob\u2019s da irgendwie 'ne M\xF6glichkeit gibt.\r\n<name=Default>Also eine...
+      eine M\xF6glichkeit f\xE4llt mir ein.\r\n<name=Default>Aber ich glaube nicht,
+      dass das \u2018ne M\xF6glichkeit f\xFCr dich ist.\r\n<name=Default>Also vielleicht
+      eventuell mit viel Gl\xFCck k\xF6nnte das funktionieren.\r\n<name=Default>Aber
+      ich will jetzt nicht unsere gesamte Beziehung auf dem Spiel setzen.\r\n<name=Default>Deswegen
+      erz\xE4hle ich dir lieber nichts davon.\r\n<name=Default>Hier ist es doch sowieso
+      viel cooler oder nicht?\r\n<name=Default>Mit etwas \xDCbung k\xF6nntest du
+      auch so \u2018n cooles Maki-Hotel erstellen.\r\n<name=Default>Das w\xE4re doch
+      mal eine gute Alternative zu dem aus der Traumwelt rausgehen.\r\n<name=Default>Haha,
+      l\xE4cherlich, an sowas habe ich noch nichtmal gedacht irgendwann mal.\r\n<name=Default>Und
+      wenn du keine Lust hast 'n eigenes Hotel zu erstellen, kannst du dich auch
+      einfach hier in diesem Hotel umsehen.\r\n<name=Default>Ich meine, das sind
+      99999 einzigartige Stockwerke.\r\n<name=Default>Da wird dir bestimmt nicht
+      langweilig werden, wir haben ja auch wirklich alles.\r\n<name=Default>Also
+      in einem Stockwerk haben wir zum Beispiel einen riesigen Swimmingpool,\r\n<name=Default>dann
+      in 'nem anderen Raum haben wir ein riesiges B\xE4llebad. Also da ist jetzt
+      echt wirklich f\xFCr jeden was dabei.\r\n<name=Default>Und da kann man sich
+      ja auch jeden Tag 'n neues Stockwerk suchen und es wird einfach nicht langweilig.\r\n<name=Default>Betten
+      gibt es nat\xFCrlich auch, hast du bestimmt schon gesehen.\r\n<name=Default>Und
+      ich habe ja gesagt, dass es \xFCber 99999 Stockwerke sind,\r\n<name=Default>aber
+      tats\xE4chlich ist es schon das unendlich-fache davon ungef\xE4hr so sch\xE4tzungsweise.\r\n<name=Default>also
+      ja ne? Viel Spa\xDF beim Erkunden!\r\n<name=Default>Ach, bevor ich es vergesse:\r\n<name=Default>Das
+      Stockwerk 99999 ist gerade im Umbau, das k\xF6nnte gef\xE4hrlich werden, also
+      bitte nicht dahingehen.\r\n<name=Default>Und in Stockwerk 19980203 wird gerade
+      eine private Fete gefeiert.\r\n<name=Default>Die beiden Stockwerke also umgehen,
+      okay?\r\n<name=Default>Nicht vergessen: Stockwerke 99999 und 19980203 ignorieren
+      und nicht besuchen, okay?\r\n<name=Default>Nicht. Besuchen.\r\n<name=Default>Okay?\r\n<name=Default>Viel
+      Spa\xDF!\r\n"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

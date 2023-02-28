@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: point1
-  m_Shader: {fileID: -6465566751694194690, guid: e190aaf2b757dd94e9293a0b9fced470,
+  m_Shader: {fileID: -6465566751694194690, guid: 9d8dd5cdb4146904e8a72c92c37deb7e,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

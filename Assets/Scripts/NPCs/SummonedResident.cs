@@ -34,15 +34,15 @@ public class SummonedResident : MonoBehaviour, Useable
         if (NavMesh.SamplePosition(player.transform.position, out hit, 4f, NavMesh.AllAreas))
             player.TeleportPlayer(hit.position, player.transform.eulerAngles);
 
-        yield return DialogueManager.instance.StartDialogue(dialogueTextPre, dialogueVoice);
+        yield return DialogueManager.instance.StartDialogueLegacy(dialogueTextPre, dialogueVoice);
         anim.SetTrigger("spawn");
         yield return new WaitForSeconds(3.3f);
 
-        yield return DialogueManager.instance.StartDialogue(dialogueTextMid, dialogueVoice);
+        yield return DialogueManager.instance.StartDialogueLegacy(dialogueTextMid, dialogueVoice);
         anim.SetTrigger("teleport");
         yield return new WaitForSeconds(4f);
 
-        yield return DialogueManager.instance.StartDialogue(dialogueTextPost, dialogueVoice);
+        yield return DialogueManager.instance.StartDialogueLegacy(dialogueTextPost, dialogueVoice);
 
         CameraController.instance.RemoveCamera(dialogueCameraPos);
     }

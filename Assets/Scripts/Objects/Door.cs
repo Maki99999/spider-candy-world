@@ -54,7 +54,7 @@ public class Door : MonoBehaviour, Useable
         if (notOpeningText.Count > 0)
         {
             PlayerController.instance.SetFrozen(true);
-            yield return DialogueManager.instance.StartDialogue(notOpeningText, DialogueVoice.NEUTRAL);
+            yield return DialogueManager.instance.StartDialogueLegacy(notOpeningText, DialogueVoice.NEUTRAL);
             PlayerController.instance.SetFrozen(false);
         }
 

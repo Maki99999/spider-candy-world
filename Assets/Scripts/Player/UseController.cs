@@ -7,7 +7,7 @@ public class UseController : MonoBehaviour
     public float range = 2.5f;
     public LayerMask mask;
 
-    public GameObject uiIndicator;
+    public Animator crosshairAnim;
 
     private bool lastPress = false;
 
@@ -34,8 +34,7 @@ public class UseController : MonoBehaviour
                 }
                 else
                 {
-                    if (!uiIndicator.activeSelf)
-                        uiIndicator.SetActive(true);
+                    crosshairAnim.SetBool("Circle", true);
 
                     if (useKey && !lastPress)
                     {
@@ -46,12 +45,12 @@ public class UseController : MonoBehaviour
             }
             else
             {
-                uiIndicator.SetActive(false);
+                crosshairAnim.SetBool("Circle", false);
             }
         }
         else
         {
-            uiIndicator.SetActive(false);
+            crosshairAnim.SetBool("Circle", false);
         }
 
         lastPress = useKey;
@@ -59,8 +58,8 @@ public class UseController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (uiIndicator != null)
-            uiIndicator.SetActive(false);
+        if (crosshairAnim != null)
+            crosshairAnim.SetBool("Circle", false);
     }
 }
 

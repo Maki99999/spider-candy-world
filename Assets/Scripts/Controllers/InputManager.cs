@@ -27,11 +27,24 @@ public class InputManager : MonoBehaviour
     public static InputManager instance { get; private set; }
 
     private List<MonoBehaviour> freedList = new List<MonoBehaviour>();
+    [SerializeField] private RectTransform cursor;
+    private Canvas cursorCanvas;
 
     private void Awake()
     {
         instance = this;
         UpdateCursorState();
+        cursorCanvas = cursor.GetComponentInParent<Canvas>();
+    }
+
+    private void Update()
+    {
+        Vector2 movePos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            cursorCanvas.transform as RectTransform,
+            Input.mousePosition, cursorCanvas.worldCamera,
+            out movePos);
+        cursor.position = cursorCanvas.transform.TransformPoint(movePos);
     }
 
     public void FreeCursor(MonoBehaviour initiatedKeyObj)
@@ -48,15 +61,17 @@ public class InputManager : MonoBehaviour
 
     private void UpdateCursorState()
     {
+        Cursor.visible = false;
+
         if (freedList.Count > 0)
         {
             Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            cursor.gameObject.SetActive(true);
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            cursor.gameObject.SetActive(false);
         }
     }
 }
