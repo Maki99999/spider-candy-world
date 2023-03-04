@@ -234,6 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca018d2f12f04624da4686206a8255e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializatonId: -1
+  collected: 0
   collectibleName: gem
   collectedObject: {fileID: 7372677636110642051, guid: 6729ca6c73090344ca03a165cf4697e9,
     type: 3}

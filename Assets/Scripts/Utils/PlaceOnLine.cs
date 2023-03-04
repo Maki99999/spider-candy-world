@@ -64,7 +64,10 @@ public class PlaceOnLine : MonoBehaviour
             for (int j = 0; j <= numInstances; j++)
             {
                 Vector3 pos = start + (dir * j * spacingBetwPrefabs);
-                Instantiate(prefab, pos, Quaternion.identity, prefabDump);
+                GameObject pref = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+                pref.transform.parent = prefabDump;
+                pref.transform.position = pos;
+                pref.transform.rotation = Quaternion.identity;
             }
         }
     }
