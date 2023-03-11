@@ -67,6 +67,69 @@ MonoBehaviour:
       Spa\xDF!\r\n"
     m_Metadata:
       m_Items: []
+  - m_Id: 3712220961161216
+    m_Localized: '<name=R1>text1
+
+      <name=R2>text2
+
+
+      text3
+
+
+
+      <name=R1>text4
+
+
+      <name=R2>choices...
+
+
+      <choice=choice
+      for following 6 boxes>
+
+      <name=R1>textA1
+
+      <name=R2>textA2
+
+      <name=R1>textA3
+
+      <name=R2>textA4
+
+      <name=R1>textA5
+
+      <name=R1>textA6
+
+      </choice>
+
+
+      <choice=choice
+      for following 2 boxes>
+
+      <name=R1>textB1
+
+      <name=R1>textB2
+
+      </choice>
+
+
+      <choice=choice
+      for following 3 boxes>
+
+      <name=R2>textB1
+
+      <name=R2>textB2
+
+      <name=R1>textB3
+
+      </choice>
+
+
+
+
+      <name=R1>textEtcEtc
+
+      <name=R2>textEnd'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -140,6 +140,80 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private DialogueNode TextToGraph(string text)
+    {
+        string[] texts = text.TrimEnd('\n').Split('\n');
+
+        DialogueNode currentNode = null;
+        string lastName = "";
+
+        for (int i = 0; i < texts.Length; i++)
+        {
+            // split custom tags at start and text
+            StringBuilder lineTags = new StringBuilder();
+            bool inTag = false;
+            foreach (char part in texts[i])
+            {
+                if (!inTag && part != '<')
+                    break;
+                else if (!inTag && part == '<')
+                {
+                    lineTags.Append(part);
+                    inTag = true;
+                }
+                else if (inTag && part == '>')
+                {
+                    lineTags.Append(part);
+                    inTag = false;
+                }
+                else
+                    lineTags.Append(part);
+            }
+            string lineClean = texts[i].Substring(lineTags.Length).Trim();
+            var tags = ProcessCustomTags(lineTags.ToString());
+
+            lastName = tags.GetValueOrDefault("name", lastName);
+
+            if (tags.ContainsKey("choice") && currentNode != null)
+            {
+                StringBuilder choiceText = new StringBuilder();
+                int depth = 0;
+                for (; i < texts.Length; i++)
+                {
+                    if (texts[i].Contains("</choice>"))
+                    {
+                        depth--;
+                        if (depth == 0)
+                        {
+                            i++;
+                            break;
+                        }
+                    }
+                    else if (texts[i].Contains("<choice="))
+                        depth++;
+                    else
+                        choiceText.Append(texts[i]).Append('\n');
+                }
+
+                var choiceNode = TextToGraph(choiceText.ToString());
+                if (choiceNode != null)
+                    currentNode.choices.Add(new System.Tuple<string, DialogueNode>(tags.GetValueOrDefault("choice"), choiceNode));
+            }
+
+            if (lineClean == "")
+                continue;
+
+            var newNode = new DialogueNode(lineClean, lastName);
+
+            if (currentNode == null)
+                currentNode = newNode;
+            else
+                currentNode.child = newNode;
+        }
+
+        return currentNode;
+    }
+
     private Speaker SpeakerToInstance(DialogueSpeaker speaker)
     {
         List<float> starts = new List<float>();
@@ -357,6 +431,22 @@ public class DialogueManager : MonoBehaviour
             isPressing = false;
 
         return false;
+    }
+
+    private class DialogueNode
+    {
+        public string text;
+        public string speakerId;
+        public List<System.Tuple<string, DialogueNode>> choices;
+        public DialogueNode child;
+
+        public DialogueNode(string text, string speakerId)
+        {
+            this.text = text;
+            this.speakerId = speakerId;
+            this.choices = null;
+            this.child = null;
+        }
     }
 
     private class Speaker
