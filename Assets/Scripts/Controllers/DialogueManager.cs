@@ -14,6 +14,8 @@ public class DialogueManager : MonoBehaviour
 
     public Animator anim;
     public DialogueText text;
+    public DialogueText[] choiceTexts;
+    public UnityEngine.EventSystems.EventSystem uiEventSystem;
     public AudioSource audioSourceVoice;
     public GameObject audioSourceOriginal;
     public int audioSourcesCount = 25;
@@ -27,10 +29,13 @@ public class DialogueManager : MonoBehaviour
     private int every4thLetter = -1;
     private int currentAudioSource = -1;
     private List<AudioSource> audioSources;
+    private Coroutine audioVoiceCoroutine;
 
     private bool isPressing = false;
     public bool isInDialogue { get; private set; } = false;
     private Transform currentCamPos = null;
+
+    private int chosenChoice = -1;
 
     private void Start()
     {
@@ -55,115 +60,109 @@ public class DialogueManager : MonoBehaviour
             if (currentCamPos != null)
             {
                 CameraController.instance.RemoveCamera(currentCamPos);
+                currentCamPos = null;
             }
+
+            if (audioVoiceCoroutine != null)
+                StopCoroutine(audioVoiceCoroutine);
 
             isInDialogue = false;
         }
     }
 
-    public void StartDialogueCoroutine(LocalizedString text, DialogueSpeaker[] speakers)
+    public void StartDialogueCoroutine(DialogueNode startNode)
     {
-        StartCoroutine(StartDialogue(text, speakers));
+        StartCoroutine(StartDialogue(startNode));
     }
 
-    public IEnumerator StartDialogue(LocalizedString text, DialogueSpeaker[] speakers)
+    public IEnumerator StartDialogue(DialogueNode startNode)
     {
         if (!isInDialogue)
         {
             isInDialogue = true;
             player.SetFrozen(true);
-            this.text.SetFirstInvisibleIndex(0);
+            text.SetFirstInvisibleIndex(0);
             anim.SetBool("Open", true);
 
-            string[] texts = text.GetLocalizedString().TrimEnd('\n').Split('\n');
-            Dictionary<string, Speaker> speakersDict = new Dictionary<string, Speaker>();
-            foreach (var speaker in speakers)
-                speakersDict.Add(speaker.speakerId, SpeakerToInstance(speaker));
+            yield return new WaitUntil(() => (!IsPressingConfirm()));
+
+            DialogueNode currentNode = startNode;
 
             bool first = true;
-            foreach (var dialogueLine in texts)
+            while (currentNode != null)
             {
-                // split custom tags at start and text
-                StringBuilder lineTags = new StringBuilder();
-                bool inTag = false;
-                foreach (char part in dialogueLine)
-                {
-                    if (!inTag && part != '<')
-                        break;
-                    else if (!inTag && part == '<')
-                    {
-                        lineTags.Append(part);
-                        inTag = true;
-                    }
-                    else if (inTag && part == '>')
-                    {
-                        lineTags.Append(part);
-                        inTag = false;
-                    }
-                    else
-                        lineTags.Append(part);
-                }
-                string lineTrimmed = dialogueLine.Substring(lineTags.Length);
-                var tags = ProcessCustomTags(lineTags.ToString());
+                if (currentNode.camPosition != null)
+                    CameraController.instance.AddCamera(currentNode.camPosition, null, null, true);
+                if (currentCamPos != null)
+                    CameraController.instance.RemoveCamera(currentCamPos);
+                currentCamPos = currentNode.camPosition;
 
-                // get speaker
-                Speaker speaker = new Speaker();
-                if (tags.ContainsKey("name"))
-                {
-                    if (speakersDict.ContainsKey(tags["name"]))
-                        speaker = speakersDict[tags["name"]];
-                    else if (speakersDict.Count > 0)
-                        speaker = speakersDict.Values.First();
-                }
-                else if (speakersDict.Count > 0)
-                    speaker = speakersDict.Values.First();
-
-                //delay on first message
                 if (first)
                 {
-                    first = false;
-                    yield return new WaitUntil(() => (!IsPressingConfirm()));
                     yield return new WaitForSeconds(0.8f);
+                    first = false;
                 }
 
-                //write
-                if (speaker.audio != null)
-                    yield return TypeSentence(lineTrimmed, speaker);
+                if (audioVoiceCoroutine != null)
+                    StopCoroutine(audioVoiceCoroutine);
+
+                if (currentNode.customAudio)
+                    yield return TypeSentence(currentNode.text, currentNode.audioClip, currentNode.audioClipStartTime,
+                            currentNode.audioClipLength);
                 else
-                    yield return TypeSentence(speaker.audioAlt, lineTrimmed);
+                    yield return TypeSentence(currentNode.text, currentNode.audioAlt);
 
                 yield return new WaitUntil(() => (IsPressingConfirm()));
                 yield return new WaitUntil(() => (!IsPressingConfirm()));
+
+                if (currentNode.hasChoices)
+                {
+                    yield return ChoosingChoice(currentNode);
+                    currentNode = currentNode.nextNodes[chosenChoice];
+                }
+                else
+                    currentNode = currentNode.nextNode;
             }
 
             StopDialogue();
         }
     }
 
-    private Speaker SpeakerToInstance(DialogueSpeaker speaker)
+    private IEnumerator ChoosingChoice(DialogueNode currentNode)
     {
-        List<float> starts = new List<float>();
-        List<float> lengths = new List<float>();
+        uiEventSystem.SetSelectedGameObject(null);
+        anim.SetBool("Choices", true);
+        choiceTexts[0].transform.parent.parent.gameObject.SetActive(true);
 
-        string[] startAndEnds = speaker.speakerAudioTiming.GetLocalizedString().Split('\n');
-        System.TimeSpan startTime;
-        System.TimeSpan endTime;
-        foreach (string startAndEnd in startAndEnds)
+        for (int i = 0; i < 4; i++)
         {
-            string[] split = startAndEnd.Split(';');
-
-            if (startAndEnd.Length != 2 && System.TimeSpan.TryParse(split[0], out startTime)
-                    && System.TimeSpan.TryParse(split[1].Split('\n')[0], out endTime))
+            if (currentNode.nextNodes.Length > i)
             {
-                float start = (float)(startTime.TotalMilliseconds / 1000);
-                starts.Add(start);
-                lengths.Add(((float)(endTime.TotalMilliseconds / 1000)) - start);
+                choiceTexts[i].transform.parent.gameObject.SetActive(currentNode.nextNodes.Length > i);
+                choiceTexts[i].SetFirstInvisibleIndex(int.MaxValue - 1);
+                yield return null;
+                choiceTexts[i].SetText(currentNode.nextNodesTexts[i]);
+            }
+            else
+            {
+                choiceTexts[i].transform.parent.gameObject.SetActive(false);
             }
         }
 
-        return new Speaker(speaker.speakerName, speaker.speakerCameraPos, speaker.speakerAudio.LoadAsset(),
-                starts.ToArray(), lengths.ToArray(), speaker.speakerAudioAlt);
+        InputManager.instance.FreeCursor(this);
+        yield return new WaitForSeconds(2f);
+
+        chosenChoice = -1;
+        yield return new WaitUntil(() => chosenChoice >= 0);
+        anim.SetBool("Choices", false);
+        choiceTexts[0].transform.parent.parent.gameObject.SetActive(false);
+        InputManager.instance.LockCursor(this);
+
+        for (int i = 0; i < 4; i++)
+            choiceTexts[i].transform.parent.gameObject.SetActive(false);
     }
+
+    public void ChooseChoice(int choice) => chosenChoice = choice;
 
     private IEnumerator PlayAudioClipPart(AudioClip clip, float startTime, float length)
     {
@@ -175,37 +174,12 @@ public class DialogueManager : MonoBehaviour
         audioSourceVoice.Stop();
     }
 
-    private Dictionary<string, string> ProcessCustomTags(string text)
-    {
-        Dictionary<string, string> tags = new Dictionary<string, string>();
-
-        MatchCollection matches = Regex.Matches(text, @"<[^>]*>");
-
-        foreach (Match match in matches)
-        {
-            var matchStr = match.Value;
-            if (matchStr.Contains("="))
-            {
-                var matchSplit = matchStr.Split("=");
-                tags.Add(matchSplit[0], matchSplit[1]);
-            }
-            else
-            {
-                tags.Add(matchStr, "");
-            }
-        }
-
-        return tags;
-    }
-
-    //[System.Obsolete]
     public void StartDialogueCoroutine(List<string> texts, DialogueVoice voice = DialogueVoice.DEFAULT, Transform camPos = null)
     {
-        StartCoroutine(StartDialogueLegacy(texts, voice, camPos));
+        StartCoroutine(StartDialogue(texts, voice, camPos));
     }
 
-    //[System.Obsolete]
-    public IEnumerator StartDialogueLegacy(List<string> texts, DialogueVoice voice = DialogueVoice.DEFAULT, Transform camPos = null)
+    public IEnumerator StartDialogue(List<string> texts, DialogueVoice voice = DialogueVoice.DEFAULT, Transform camPos = null)
     {
         if (!isInDialogue)
         {
@@ -223,7 +197,7 @@ public class DialogueManager : MonoBehaviour
 
             foreach (string sentence in texts)
             {
-                yield return TypeSentence(voice, sentence);
+                yield return TypeSentence(sentence, voice);
 
                 yield return new WaitUntil(() => (IsPressingConfirm()));
                 yield return new WaitUntil(() => (!IsPressingConfirm()));
@@ -233,13 +207,13 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    IEnumerator TypeSentence(DialogueVoice voice, string sentence)
+    IEnumerator TypeSentence(string line, DialogueVoice voice)
     {
-        text.SetText(sentence);
+        text.SetText(line);
         bool confirmPressed = false;
         bool skip = false;
 
-        int sentenceLength = Regex.Replace(sentence, @"<.*?>", "").Length;
+        int sentenceLength = Regex.Replace(line, @"<.*?>", "").Length;
 
         for (int i = 0; i < sentenceLength; i++)
         {
@@ -260,29 +234,25 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitUntil(() => (!IsPressingConfirm()));
     }
 
-    IEnumerator TypeSentence(string dialogueLine, Speaker speaker)
+    IEnumerator TypeSentence(string dialogueLine, AudioClip clip, float clipStart, float clipLength)
     {
         text.SetText(dialogueLine);
         bool confirmPressed = false;
         bool skip = false;
 
-        Vector2 startAndLength = speaker.GetNextStartTimeAndLength();
-        Coroutine audioCoroutine = StartCoroutine(PlayAudioClipPart(speaker.audio,
-                startAndLength.x, startAndLength.y));
+        if (audioVoiceCoroutine != null)
+            StopCoroutine(audioVoiceCoroutine);
+        audioVoiceCoroutine = StartCoroutine(PlayAudioClipPart(clip, clipStart, clipLength));
 
         int sentenceLength = Regex.Replace(dialogueLine, @"<.*?>", "").Length;
-        float timePerChar = startAndLength.y / sentenceLength;
+        float timePerChar = clipLength / sentenceLength;
 
         for (int i = 0; i < sentenceLength; i++)
         {
             text.SetFirstInvisibleIndex(i);
 
-            every4thLetter = (every4thLetter + 1) % 4;
-            if (!skip && every4thLetter == 0)
-                //PlayRandomSound(voice);
-
-                if (IsPressingConfirm())
-                    confirmPressed = true;
+            if (IsPressingConfirm())
+                confirmPressed = true;
             if (confirmPressed && !IsPressingConfirm())
                 skip = true;
 
@@ -290,7 +260,6 @@ public class DialogueManager : MonoBehaviour
                 yield return new WaitForSeconds(timePerChar);
         }
         yield return new WaitUntil(() => (!IsPressingConfirm()));
-        StopCoroutine(audioCoroutine);
     }
 
     void PlayRandomSound(DialogueVoice voice)
@@ -357,45 +326,6 @@ public class DialogueManager : MonoBehaviour
             isPressing = false;
 
         return false;
-    }
-
-    private class Speaker
-    {
-        public string name;
-        public Transform cameraPos;
-        public AudioClip audio;
-        private float[] audioStartTimes;
-        private float[] audioLengths;
-        public DialogueVoice audioAlt;
-
-        private int nextAudioIndex;
-
-        public Speaker(string name, Transform cameraPos, AudioClip audio, float[] audioStartTimes, float[] audioLengths, DialogueVoice audioAlt)
-        {
-            this.name = name;
-            this.cameraPos = cameraPos;
-            this.audio = audio;
-            this.audioStartTimes = audioStartTimes;
-            this.audioLengths = audioLengths;
-            this.audioAlt = audioAlt;
-        }
-
-        public Speaker()
-        {
-            this.name = "";
-            this.cameraPos = null;
-            this.audio = null;
-            this.audioStartTimes = null;
-            this.audioLengths = null;
-            this.audioAlt = DialogueVoice.DEFAULT;
-        }
-
-        public Vector2 GetNextStartTimeAndLength()
-        {
-            Vector2 output = new Vector2(audioStartTimes[nextAudioIndex], audioLengths[nextAudioIndex]);
-            nextAudioIndex++;
-            return output;
-        }
     }
 }
 

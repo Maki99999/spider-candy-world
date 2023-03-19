@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.alelievr.node-graph-processor": {
+      "version": "1.3.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.github.mcmanning.bluegraph": {
+      "version": "https://github.com/McManning/BlueGraph.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f1de7f5fb6db58a73865e866eae1c76ca463af38"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
