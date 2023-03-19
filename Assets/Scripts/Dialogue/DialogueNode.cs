@@ -43,6 +43,8 @@ public class DialogueNode
         this.audioClip = audioClip;
         this.audioClipStartTime = audioClipStartTime;
         this.audioClipLength = audioClipLength;
+        this.nextNodes = new DialogueNode[0];
+        this.nextNodesTexts = new string[0];
     }
 
     public DialogueNode(string participantName, string text, Transform camPosition, DialogueVoice voice)
@@ -53,13 +55,15 @@ public class DialogueNode
         this.customAudio = false;
         this.hasChoices = false;
         this.audioAlt = voice;
+        this.nextNodes = new DialogueNode[0];
+        this.nextNodesTexts = new string[0];
     }
 
     public void AddChoice(DialogueNode node, string text)
     {
         hasChoices = true;
-        nextNodes.Append(node);
-        nextNodesTexts.Append(text);
+        nextNodes = nextNodes.Concat(new DialogueNode[] { node }).ToArray();
+        nextNodesTexts = nextNodesTexts.Concat(new string[] { text }).ToArray();
     }
 
     public static System.Tuple<float, float> StringToStartEnd(string s)
@@ -68,8 +72,8 @@ public class DialogueNode
         System.TimeSpan startTime;
         System.TimeSpan endTime;
 
-        if (s.Length == 2 && System.TimeSpan.TryParse(split[0], out startTime)
-                && System.TimeSpan.TryParse(split[1].Split('\n')[0], out endTime))
+        if (split.Length == 2 && System.TimeSpan.TryParse(split[0], out startTime)
+                && System.TimeSpan.TryParse(split[1], out endTime))
         {
             float start = (float)(startTime.TotalMilliseconds / 1000);
             return new System.Tuple<float, float>(start, ((float)(endTime.TotalMilliseconds / 1000)) - start);

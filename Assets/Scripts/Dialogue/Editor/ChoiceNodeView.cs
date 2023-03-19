@@ -44,7 +44,10 @@ public class ChoiceNodeView : NodeView
 
     private void LocalizedStringChanged(string s)
     {
-        previewTexts = s.Split("\n");
+        if (s == null)
+            previewTexts = new string[0];
+        else
+            previewTexts = s.Split("\n");
     }
 
     private void OnGUI()

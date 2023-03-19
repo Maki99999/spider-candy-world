@@ -15,12 +15,12 @@ public class ParticipantData
     public LocalizedAudioClip audioClip;
     public LocalizedString audioClipTimestamps;
 
-    public DialogueNode ToNodeTree(int textLineStart = 0, int textLineCount = int.MaxValue)
+    public DialogueNode ToNodeGraph(int textLineStart = 0, int textLineCount = int.MaxValue)
     {
         string[] lines = text.GetLocalizedString().Split("\n");
         System.Tuple<float, float>[] timestamps = null;
         if (customAudio)
-            timestamps = text.GetLocalizedString().Split('\n')
+            timestamps = audioClipTimestamps.GetLocalizedString().Split('\n')
                     .Select<string, System.Tuple<float, float>>(s => DialogueNode.StringToStartEnd(s)).ToArray();
 
         DialogueNode outputNode = null;

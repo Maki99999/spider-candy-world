@@ -16,4 +16,6 @@ public class TextNode : Node
     public int textLineCount;
 
     public override object OnRequestValue(Port port) => null;
+
+    public ParticipantData GetParticipantRuntime() => GetInputValue("participant", participant);
 }

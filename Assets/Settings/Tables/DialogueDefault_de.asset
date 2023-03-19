@@ -19,52 +19,45 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 59997802708992
-    m_Localized: "<name=Default>Hey Leute!\r\n<name=Default>Wir sind heute wieder
-      im Maki-Hotel,\r\n<name=Default>das gr\xF6\xDFte und einzige Hotel in der Umgebung.\r\n<name=Default>Und
-      wie ich sehe, haben wir heute eine nette junge Dame als Gast in unserem Hotel.\r\n<name=Default>Sehr
-      Cool.\r\n<name=Default>Hallo, wie ist denn dein Name?\r\n<name=Default>...\r\n<name=Default>Ahaha,
-      wohl nicht sehr gespr\xE4chig, kann ich verstehen.\r\n<name=Default>Ich erkenne,
-      dass du hier neu bist.\r\n<name=Default>Hier ist mal eine Brosch\xFCre.\r\n<name=Default>Ich
-      kann dir ja mal coole Fun Facts zu dem Hotel geben.\r\n<name=Default>Wusstest
-      du schon, dass das Hotel \xFCber 99999 Stockwerke besitzt?\r\n<name=Default>Ja,
-      ich wei\xDF, sehr viel.\r\n<name=Default>Aber: So viele sind halt n\xF6tig,
-      weil das das einzige Hotel hier in der ganzen Welt ist.\r\n<name=Default>...\r\n<name=Default>Du
-      schaust 'n bisschen verwirrt aus.\r\n<name=Default>Fangen wir mal ein bisschen
-      weiter vorne an.\r\n<name=Default>Wir befinden uns hier in der Welt der Tr\xE4ume,
-      wo alles, was du willst, passieren kann.\r\n<name=Default>Ist das nicht toll?\r\n<name=Default>Ich
-      pers\xF6nlich hab' mir ja gew\xFCnscht, dass mir die ganze Welt hier geh\xF6rt.\r\n<name=Default>Und
-      deswegen hei\xDFt die Welt jetzt auch Maki-Welt.\r\n<name=Default>Cooler Name,
-      ich wei\xDF. Hehe.\r\n<name=Default>Mensch, irgendwie siehst du aus, als wenn
-      du aus der Traumwelt rausgehen willst.\r\n<name=Default>Kann ich irgendwie
-      nicht verstehen.\r\n<name=Default>Hmm.\r\n<name=Default>Ja, ich \xFCberleg
-      mal ob\u2019s da irgendwie 'ne M\xF6glichkeit gibt.\r\n<name=Default>Also eine...
-      eine M\xF6glichkeit f\xE4llt mir ein.\r\n<name=Default>Aber ich glaube nicht,
-      dass das \u2018ne M\xF6glichkeit f\xFCr dich ist.\r\n<name=Default>Also vielleicht
-      eventuell mit viel Gl\xFCck k\xF6nnte das funktionieren.\r\n<name=Default>Aber
-      ich will jetzt nicht unsere gesamte Beziehung auf dem Spiel setzen.\r\n<name=Default>Deswegen
-      erz\xE4hle ich dir lieber nichts davon.\r\n<name=Default>Hier ist es doch sowieso
-      viel cooler oder nicht?\r\n<name=Default>Mit etwas \xDCbung k\xF6nntest du
-      auch so \u2018n cooles Maki-Hotel erstellen.\r\n<name=Default>Das w\xE4re doch
-      mal eine gute Alternative zu dem aus der Traumwelt rausgehen.\r\n<name=Default>Haha,
-      l\xE4cherlich, an sowas habe ich noch nichtmal gedacht irgendwann mal.\r\n<name=Default>Und
-      wenn du keine Lust hast 'n eigenes Hotel zu erstellen, kannst du dich auch
-      einfach hier in diesem Hotel umsehen.\r\n<name=Default>Ich meine, das sind
-      99999 einzigartige Stockwerke.\r\n<name=Default>Da wird dir bestimmt nicht
-      langweilig werden, wir haben ja auch wirklich alles.\r\n<name=Default>Also
-      in einem Stockwerk haben wir zum Beispiel einen riesigen Swimmingpool,\r\n<name=Default>dann
-      in 'nem anderen Raum haben wir ein riesiges B\xE4llebad. Also da ist jetzt
-      echt wirklich f\xFCr jeden was dabei.\r\n<name=Default>Und da kann man sich
-      ja auch jeden Tag 'n neues Stockwerk suchen und es wird einfach nicht langweilig.\r\n<name=Default>Betten
-      gibt es nat\xFCrlich auch, hast du bestimmt schon gesehen.\r\n<name=Default>Und
-      ich habe ja gesagt, dass es \xFCber 99999 Stockwerke sind,\r\n<name=Default>aber
-      tats\xE4chlich ist es schon das unendlich-fache davon ungef\xE4hr so sch\xE4tzungsweise.\r\n<name=Default>also
-      ja ne? Viel Spa\xDF beim Erkunden!\r\n<name=Default>Ach, bevor ich es vergesse:\r\n<name=Default>Das
-      Stockwerk 99999 ist gerade im Umbau, das k\xF6nnte gef\xE4hrlich werden, also
-      bitte nicht dahingehen.\r\n<name=Default>Und in Stockwerk 19980203 wird gerade
-      eine private Fete gefeiert.\r\n<name=Default>Die beiden Stockwerke also umgehen,
-      okay?\r\n<name=Default>Nicht vergessen: Stockwerke 99999 und 19980203 ignorieren
-      und nicht besuchen, okay?\r\n<name=Default>Nicht. Besuchen.\r\n<name=Default>Okay?\r\n<name=Default>Viel
-      Spa\xDF!\r\n"
+    m_Localized: "Hey Leute!\r\nWir sind heute wieder im Maki-Hotel,\r\ndas gr\xF6\xDFte
+      und einzige Hotel in der Umgebung.\r\nUnd wie ich sehe, haben wir heute eine
+      nette junge Dame als Gast in unserem Hotel.\r\nSehr Cool.\r\nHallo, wie ist
+      denn dein Name?\r\n...\r\nAhaha, wohl nicht sehr gespr\xE4chig, kann ich verstehen.\r\nIch
+      erkenne, dass du hier neu bist.\r\nHier ist mal eine Brosch\xFCre.\r\nIch kann
+      dir ja mal coole Fun Facts zu dem Hotel geben.\r\nWusstest du schon, dass das
+      Hotel \xFCber 99999 Stockwerke besitzt?\r\nJa, ich wei\xDF, sehr viel.\r\nAber:
+      So viele sind halt n\xF6tig, weil das das einzige Hotel hier in der ganzen
+      Welt ist.\r\n...\r\nDu schaust 'n bisschen verwirrt aus.\r\nFangen wir mal
+      ein bisschen weiter vorne an.\r\nWir befinden uns hier in der Welt der Tr\xE4ume,
+      wo alles, was du willst, passieren kann.\r\nIst das nicht toll?\r\nIch pers\xF6nlich
+      hab' mir ja gew\xFCnscht, dass mir die ganze Welt hier geh\xF6rt.\r\nUnd deswegen
+      hei\xDFt die Welt jetzt auch Maki-Welt.\r\nCooler Name, ich wei\xDF. Hehe.\r\nMensch,
+      irgendwie siehst du aus, als wenn du aus der Traumwelt rausgehen willst.\r\nKann
+      ich irgendwie nicht verstehen.\r\nHmm.\r\nJa, ich \xFCberleg mal ob\u2019s
+      da irgendwie 'ne M\xF6glichkeit gibt.\r\nAlso eine... eine M\xF6glichkeit f\xE4llt
+      mir ein.\r\nAber ich glaube nicht, dass das \u2018ne M\xF6glichkeit f\xFCr
+      dich ist.\r\nAlso vielleicht eventuell mit viel Gl\xFCck k\xF6nnte das funktionieren.\r\nAber
+      ich will jetzt nicht unsere gesamte Beziehung auf dem Spiel setzen.\r\nDeswegen
+      erz\xE4hle ich dir lieber nichts davon.\r\nHier ist es doch sowieso viel cooler
+      oder nicht?\r\nMit etwas \xDCbung k\xF6nntest du auch so \u2018n cooles Maki-Hotel
+      erstellen.\r\nDas w\xE4re doch mal eine gute Alternative zu dem aus der Traumwelt
+      rausgehen.\r\nHaha, l\xE4cherlich, an sowas habe ich noch nichtmal gedacht
+      irgendwann mal.\r\nUnd wenn du keine Lust hast 'n eigenes Hotel zu erstellen,
+      kannst du dich auch einfach hier in diesem Hotel umsehen.\r\nIch meine, das
+      sind 99999 einzigartige Stockwerke.\r\nDa wird dir bestimmt nicht langweilig
+      werden, wir haben ja auch wirklich alles.\r\nAlso in einem Stockwerk haben
+      wir zum Beispiel einen riesigen Swimmingpool,\r\ndann in 'nem anderen Raum
+      haben wir ein riesiges B\xE4llebad. Also da ist jetzt echt wirklich f\xFCr
+      jeden was dabei.\r\nUnd da kann man sich ja auch jeden Tag 'n neues Stockwerk
+      suchen und es wird einfach nicht langweilig.\r\nBetten gibt es nat\xFCrlich
+      auch, hast du bestimmt schon gesehen.\r\nUnd ich habe ja gesagt, dass es \xFCber
+      99999 Stockwerke sind,\r\naber tats\xE4chlich ist es schon das unendlich-fache
+      davon ungef\xE4hr so sch\xE4tzungsweise.\r\nalso ja ne? Viel Spa\xDF beim Erkunden!\r\nAch,
+      bevor ich es vergesse:\r\nDas Stockwerk 99999 ist gerade im Umbau, das k\xF6nnte
+      gef\xE4hrlich werden, also bitte nicht dahingehen.\r\nUnd in Stockwerk 19980203
+      wird gerade eine private Fete gefeiert.\r\nDie beiden Stockwerke also umgehen,
+      okay?\r\nNicht vergessen: Stockwerke 99999 und 19980203 ignorieren und nicht
+      besuchen, okay?\r\nNicht. Besuchen.\r\nOkay?\r\nViel Spa\xDF!\r\n"
     m_Metadata:
       m_Items: []
   references:

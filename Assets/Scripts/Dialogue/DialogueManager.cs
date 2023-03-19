@@ -14,6 +14,8 @@ public class DialogueManager : MonoBehaviour
 
     public Animator anim;
     public DialogueText text;
+    public DialogueText[] choiceTexts;
+    public UnityEngine.EventSystems.EventSystem uiEventSystem;
     public AudioSource audioSourceVoice;
     public GameObject audioSourceOriginal;
     public int audioSourcesCount = 25;
@@ -27,10 +29,13 @@ public class DialogueManager : MonoBehaviour
     private int every4thLetter = -1;
     private int currentAudioSource = -1;
     private List<AudioSource> audioSources;
+    private Coroutine audioVoiceCoroutine;
 
     private bool isPressing = false;
     public bool isInDialogue { get; private set; } = false;
     private Transform currentCamPos = null;
+
+    private int chosenChoice = -1;
 
     private void Start()
     {
@@ -58,6 +63,9 @@ public class DialogueManager : MonoBehaviour
                 currentCamPos = null;
             }
 
+            if (audioVoiceCoroutine != null)
+                StopCoroutine(audioVoiceCoroutine);
+
             isInDialogue = false;
         }
     }
@@ -80,7 +88,7 @@ public class DialogueManager : MonoBehaviour
 
             DialogueNode currentNode = startNode;
 
-            bool first = false;
+            bool first = true;
             while (currentNode != null)
             {
                 if (currentNode.camPosition != null)
@@ -95,24 +103,66 @@ public class DialogueManager : MonoBehaviour
                     first = false;
                 }
 
-                if (startNode.customAudio)
-                    yield return TypeSentence(startNode.text, startNode.audioClip, startNode.audioClipStartTime,
-                            startNode.audioClipLength);
+                if (audioVoiceCoroutine != null)
+                    StopCoroutine(audioVoiceCoroutine);
+
+                if (currentNode.customAudio)
+                    yield return TypeSentence(currentNode.text, currentNode.audioClip, currentNode.audioClipStartTime,
+                            currentNode.audioClipLength);
                 else
-                    yield return TypeSentence(startNode.text, startNode.audioAlt);
+                    yield return TypeSentence(currentNode.text, currentNode.audioAlt);
 
                 yield return new WaitUntil(() => (IsPressingConfirm()));
                 yield return new WaitUntil(() => (!IsPressingConfirm()));
 
                 if (currentNode.hasChoices)
-                    ;   //TODO: choices
+                {
+                    yield return ChoosingChoice(currentNode);
+                    currentNode = currentNode.nextNodes[chosenChoice];
+                }
                 else
-                    currentNode = startNode.nextNode;
+                    currentNode = currentNode.nextNode;
             }
 
             StopDialogue();
         }
     }
+
+    private IEnumerator ChoosingChoice(DialogueNode currentNode)
+    {
+        uiEventSystem.SetSelectedGameObject(null);
+        anim.SetBool("Choices", true);
+        choiceTexts[0].transform.parent.parent.gameObject.SetActive(true);
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentNode.nextNodes.Length > i)
+            {
+                choiceTexts[i].transform.parent.gameObject.SetActive(currentNode.nextNodes.Length > i);
+                choiceTexts[i].SetFirstInvisibleIndex(int.MaxValue - 1);
+                yield return null;
+                choiceTexts[i].SetText(currentNode.nextNodesTexts[i]);
+            }
+            else
+            {
+                choiceTexts[i].transform.parent.gameObject.SetActive(false);
+            }
+        }
+
+        InputManager.instance.FreeCursor(this);
+        yield return new WaitForSeconds(2f);
+
+        chosenChoice = -1;
+        yield return new WaitUntil(() => chosenChoice >= 0);
+        anim.SetBool("Choices", false);
+        choiceTexts[0].transform.parent.parent.gameObject.SetActive(false);
+        InputManager.instance.LockCursor(this);
+
+        for (int i = 0; i < 4; i++)
+            choiceTexts[i].transform.parent.gameObject.SetActive(false);
+    }
+
+    public void ChooseChoice(int choice) => chosenChoice = choice;
 
     //[System.Obsolete]
     public void StartDialogueCoroutine(LocalizedString text, DialogueSpeaker[] speakers)
@@ -321,7 +371,9 @@ public class DialogueManager : MonoBehaviour
         bool confirmPressed = false;
         bool skip = false;
 
-        Coroutine audioCoroutine = StartCoroutine(PlayAudioClipPart(clip, clipStart, clipLength));
+        if (audioVoiceCoroutine != null)
+            StopCoroutine(audioVoiceCoroutine);
+        audioVoiceCoroutine = StartCoroutine(PlayAudioClipPart(clip, clipStart, clipLength));
 
         int sentenceLength = Regex.Replace(dialogueLine, @"<.*?>", "").Length;
         float timePerChar = clipLength / sentenceLength;
@@ -330,12 +382,8 @@ public class DialogueManager : MonoBehaviour
         {
             text.SetFirstInvisibleIndex(i);
 
-            every4thLetter = (every4thLetter + 1) % 4;
-            if (!skip && every4thLetter == 0)
-                //PlayRandomSound(voice);
-
-                if (IsPressingConfirm())
-                    confirmPressed = true;
+            if (IsPressingConfirm())
+                confirmPressed = true;
             if (confirmPressed && !IsPressingConfirm())
                 skip = true;
 
@@ -343,7 +391,6 @@ public class DialogueManager : MonoBehaviour
                 yield return new WaitForSeconds(timePerChar);
         }
         yield return new WaitUntil(() => (!IsPressingConfirm()));
-        StopCoroutine(audioCoroutine);
     }
 
     //[System.Obsolete]

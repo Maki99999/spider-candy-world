@@ -10,6 +10,6 @@ public class DialogueOnUse : MonoBehaviour, Useable
 
     public void Use()
     {
-        DialogueManager.instance.StartDialogueCoroutine(participant.ToNodeTree(textLineStart, textLineCount));
+        DialogueManager.instance.StartDialogueCoroutine(participant.ToNodeGraph(textLineStart, textLineCount));
     }
 }
