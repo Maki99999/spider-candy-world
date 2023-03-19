@@ -37,7 +37,7 @@ public class CastleGardenController : MonoBehaviour
         player.SetFrozen(true);
         guard.enabled = false;
 
-        var dial = StartCoroutine(DialogueManager.instance.StartDialogueLegacy(caughtDialogue));
+        var dial = StartCoroutine(DialogueManager.instance.StartDialogue(caughtDialogue));
 
         Vector3 pRot = player.GetRotation();
         Quaternion gRot = guard.transform.rotation;

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2534640562220606962}
   - component: {fileID: 2534640562220606961}
-  - component: {fileID: 2534640562220606960}
+  - component: {fileID: 964162571832939126}
   m_Layer: 13
   m_Name: DialogueUseable
   m_TagString: Useable
@@ -47,7 +47,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.840107, y: 2.916487, z: 1.6469612}
   m_Center: {x: -0.0039157867, y: 1.3207163, z: -0.3234806}
---- !u!114 &2534640562220606960
+--- !u!114 &964162571832939126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,13 +56,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 2534640562220606963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bce111aa7fb4ab44819c2be67fc5c58, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fb149918440b0e40a221729dfabf25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueText:
-  - Bist du neu hier?
-  dialogueVoice: 0
-  dialogueCameraPos: {fileID: 2534640563583287771}
+  participant:
+    participantName: 
+    camPosition: {fileID: 2534640563583287771}
+    customAudio: 0
+    audioAlt: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:ed9660652369fd1498482c5d6bd15153
+      m_TableEntryReference:
+        m_KeyId: 9471922743525376
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    audioClip:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+    audioClipTimestamps:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  textLineStart: 0
+  textLineCount: 99999
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2534640563583287772
 GameObject:
   m_ObjectHideFlags: 0

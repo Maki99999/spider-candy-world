@@ -19,6 +19,62 @@ MonoBehaviour:
     m_Key: hotelOwner_start
     m_Metadata:
       m_Items: []
+  - m_Id: 9471922743525376
+    m_Key: resident_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9472171138596864
+    m_Key: resident_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473029817483264
+    m_Key: resident_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473301448998912
+    m_Key: resident_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473306876428288
+    m_Key: resident_05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473307526545408
+    m_Key: resident_06
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473308025667584
+    m_Key: resident_07
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473308667396096
+    m_Key: resident_08
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473388669550592
+    m_Key: resident_09
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473399780261888
+    m_Key: resident_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9474002929565696
+    m_Key: resident_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9474030200930304
+    m_Key: resident_12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9474044637724672
+    m_Key: resident_13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9474230499917824
+    m_Key: resident_14
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

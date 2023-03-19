@@ -60,6 +60,83 @@ MonoBehaviour:
       besuchen, okay?\r\nNicht. Besuchen.\r\nOkay?\r\nViel Spa\xDF!\r\n"
     m_Metadata:
       m_Items: []
+  - m_Id: 9471922743525376
+    m_Localized: 'Bist du neu hier?
+
+      Dann besuch'' doch unser Dorf!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9472171138596864
+    m_Localized: 'OOOOOOOOOOHHHHHHHH!!!!
+
+      OOOOOOOOOOOOHHHHHHHHHH!!!!!!!!!!!!
+
+      EIN
+      NEUER FREUND!!!!!!
+
+      HALLOOOO!!!!!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473029817483264
+    m_Localized: "Du bist aus dem Portal gekommen?\nWow! So cool!!\nIch will auch
+      mal durch das Portal, aber das Kraftfeld l\xE4sst mich nicht!\nNaja, hier ist
+      es sowieso am Besten!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473306876428288
+    m_Localized: "Ein Gedankenexperiment:\nStell' dir vor, es existiert ein Lebewesen,
+      das unsterblich ist. Es kann nicht zerst\xF6rt werden und es altert nicht.
+      Das Lebwesen jedoch bekommt nichts von seiner Umgebung mit und kann mit dieser
+      auch nicht auf irgendeine Art kommunizieren. \nAuch die Umgebung kann nicht
+      mit dem Lebewesen kommunizieren. Aber kannn man dieses Lebewesen dann wirklich
+      Lebwesen nennen? Ist das Lebewesen dann nicht gleichzusetzen mit einem Stein?
+      Ist jeder Stein dann auch ein Lebewesen?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473301448998912
+    m_Localized: Das ist mein Haus!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473307526545408
+    m_Localized: Ich hab' lange Beine!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473308025667584
+    m_Localized: Huuuuuuuuuuiiiiiiiiiiiiiiiiiiiiii!!!!!!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473308667396096
+    m_Localized: "Was ist f\xFCr dich der Sinn des Lebens?\n...\nHaha! Ich stimme
+      dir zu!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473388669550592
+    m_Localized: "Die Br\xFCcke hab' ich selbst alleine gebaut!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9473399780261888
+    m_Localized: "Ich werde \xFCbermorgen sterben."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9474002929565696
+    m_Localized: 'Was werden deine letzten Worte sein?
+
+      Meine werden <font="AncientRunes
+      SDF">Sayonara</font> sein.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9474030200930304
+    m_Localized: '<font="AncientRunes SDF">Ich spreche eine andere Sprache!</font> '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9474044637724672
+    m_Localized: Ich hab' nix zu tun.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9474230499917824
+    m_Localized: Ich hab' Pause.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
