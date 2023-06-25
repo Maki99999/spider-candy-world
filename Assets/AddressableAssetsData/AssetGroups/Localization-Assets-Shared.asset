@@ -21,14 +21,17 @@ MonoBehaviour:
     m_Address: Assets/Settings/Tables/DialogueDefault Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8f4122aad03ebe44ab9b94b61c4d3f2c
     m_Address: Assets/Settings/Tables/DialogueDefaultTimestamps Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5c2e39769e720d041a73d3441303de80
     m_Address: Assets/Settings/Tables/DialogueDefaultAudio Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 01bc522cda29fb2498cedc31dd6226ef, type: 2}
   m_SchemaSet:

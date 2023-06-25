@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Clouds
-  m_Shader: {fileID: -6465566751694194690, guid: 46adf4ddfddcad747b3bc7366636302e,
+  m_Name: Pixelation
+  m_Shader: {fileID: -6465566751694194690, guid: d6238c42b3f0d674ba5ded2964c54892,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,31 +38,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.851
-    - _Density: 0.57
-    - _DistortSize: 94.5
-    - _DistortSpeed: 0.006
-    - _QueueControl: 0
-    - _QueueOffset: 0
-    - _Size: 112.6
-    - _Speed: 0.05
-    - _VectrxOffset: 1
-    - _VertexOffset: 0.18
-    m_Colors:
-    - _Color: {r: 0, g: 1.9921569, b: 4, a: 0}
-    - _DistortSpeed: {r: 0, g: 0.01, b: 0, a: 0}
-    - _Speed: {r: 0.01, g: 0, b: 0, a: 0}
+    - _PixelationValue: 512
+    m_Colors: []
   m_BuildTextureStacks: []
---- !u!114 &7290335590038339312
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7
