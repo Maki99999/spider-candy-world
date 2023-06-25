@@ -6,9 +6,12 @@ public class CollectiblesManager : MonoBehaviour
 {
     public static CollectiblesManager instance;
 
+    public Camera uICam;
+
     [Header("Gems")]
     public Animator gemUIAnim;
     public TMPro.TMP_Text gemsCountText;
+    public Transform gemsParent;
     public Rigidbody jarRigidbody;
     public GameObject jarSafetyColliders;
     public Transform[] jarContent;
@@ -26,6 +29,8 @@ public class CollectiblesManager : MonoBehaviour
 
     private int gemCount = 0;
 
+    private int lastScreenX;
+
     private void Awake()
     {
         instance = this;
@@ -34,13 +39,33 @@ public class CollectiblesManager : MonoBehaviour
     private void Start()
     {
         //gems
+        UpdateGemsPos();
         jarContentIdlePos = new Vector3[jarContent.Length];
         jarContentIdleRots = new Quaternion[jarContent.Length];
         for (int i = 0; i < jarContent.Length; i++)
         {
-            jarContentIdlePos[i] = jarContent[i].position;
-            jarContentIdleRots[i] = jarContent[i].rotation;
+            jarContentIdlePos[i] = jarContent[i].localPosition;
+            jarContentIdleRots[i] = jarContent[i].localRotation;
         }
+    }
+
+    private void Update()
+    {
+        if (lastScreenX != Screen.width)
+        {
+            UpdateGemsPos();
+        }
+        lastScreenX = Screen.width;
+    }
+
+    private void UpdateGemsPos()
+    {
+        Vector3 screenPoint = new Vector3(1f, 0.5f, uICam.nearClipPlane);
+        Vector3 worldPoint = uICam.ViewportToWorldPoint(screenPoint);
+
+        Vector3 objectPosition = gemsParent.position;
+        objectPosition.x = worldPoint.x - 1.75f;
+        gemsParent.position = objectPosition;
     }
 
     public void AddCollectible(string name, int count)
@@ -59,8 +84,8 @@ public class CollectiblesManager : MonoBehaviour
         {
             for (int i = 0; i < jarContent.Length; i++)
             {
-                jarContent[i].position = jarContentIdlePos[i];
-                jarContent[i].rotation = jarContentIdleRots[i];
+                jarContent[i].localPosition = jarContentIdlePos[i];
+                jarContent[i].localRotation = jarContentIdleRots[i];
             }
 
             jarMovingCorou = StartCoroutine(MoveJar());
