@@ -18,7 +18,7 @@ public class AreaController : MonoBehaviour
         }
     }
 
-    private void UpdateArea()
+    public void UpdateArea()
     {
         MusicManager.instance.ChangeMusic(musicClips);
         AmbientManager.instance.ChangeAmbientClips(randomAmbientClips, secondsBtwnAmbientClips);
