@@ -27,8 +27,8 @@ public class LilysLureCutsceneManager : MonoBehaviour
             PlayerController.instance.SetFrozen(true);
             PlayerController.instance.gameObject.SetActive(false);
             CameraController.instance.AddCamera(cutsceneCamTransform, null, null, true, true);
-            startAreaController.UpdateArea();
-            timeline.playableAsset = timelinePlayableStart;
+            //startAreaController.UpdateArea();//TODO
+            timeline.playableAsset = timelinePlayableEnd;//TODO
             timeline.Play();
         }
     }
