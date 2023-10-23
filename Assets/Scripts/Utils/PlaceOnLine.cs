@@ -30,8 +30,6 @@ public class PlaceOnLine : MonoBehaviour
         }
     }
 
-#endif
-
     private void OnValidate()
     {
         UnityEditor.EditorApplication.delayCall += UpdateObjects;
@@ -78,4 +76,6 @@ public class PlaceOnLine : MonoBehaviour
         for (int i = 0; i < lineParent.childCount - 1; i++)
             Gizmos.DrawLine(lineParent.GetChild(i).position, lineParent.GetChild(i + 1).position);
     }
+
+#endif
 }

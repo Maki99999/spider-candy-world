@@ -10,6 +10,7 @@ public class LilysLureCutsceneManager : MonoBehaviour
     public UnityEngine.Playables.PlayableAsset timelinePlayableEnd;
     public Transform cutsceneCamTransform;
     public AreaController startAreaController;
+    public AreaController endAreaController;
 
     [Space(10)] public string[] subtitles;
     [Space(10)] public string[] subtitles2;
@@ -27,8 +28,8 @@ public class LilysLureCutsceneManager : MonoBehaviour
             PlayerController.instance.SetFrozen(true);
             PlayerController.instance.gameObject.SetActive(false);
             CameraController.instance.AddCamera(cutsceneCamTransform, null, null, true, true);
-            //startAreaController.UpdateArea();//TODO
-            timeline.playableAsset = timelinePlayableEnd;//TODO
+            startAreaController.UpdateArea();
+            timeline.playableAsset = timelinePlayableStart;
             timeline.Play();
         }
     }
@@ -55,6 +56,8 @@ public class LilysLureCutsceneManager : MonoBehaviour
         currentSubtitle = -1;
         timeline.Stop();
         timeline.playableAsset = timeline.playableAsset == timelinePlayableStart ? timelinePlayableMid : timelinePlayableEnd;
+        if (timeline.playableAsset == timelinePlayableEnd)
+            endAreaController.UpdateArea();
         timeline.Play();
     }
 

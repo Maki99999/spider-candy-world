@@ -7,6 +7,7 @@ public class FaceController : MonoBehaviour
     public Vector2 leftPupilOffset;
     public Vector2 rightPupilOffset;
     public bool eyesClosed;
+    public float pupilsScale;
 
     public SkinnedMeshRenderer mesh;
     public int materialSlot;
@@ -23,5 +24,6 @@ public class FaceController : MonoBehaviour
         materialInstance.SetVector("_LeftPupilOffset", leftPupilOffset);
         materialInstance.SetVector("_RightPupilOffset", rightPupilOffset);
         materialInstance.SetFloat("_EyesClosed", eyesClosed ? 1f : 0f);
+        materialInstance.SetFloat("_PupilsScale", pupilsScale);
     }
 }

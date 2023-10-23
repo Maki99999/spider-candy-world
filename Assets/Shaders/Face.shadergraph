@@ -35,6 +35,9 @@
         },
         {
             "m_Id": "179e4ad664f64c8d9a329a945bfef0da"
+        },
+        {
+            "m_Id": "6e9117244519484ebc543b5d738909f6"
         }
     ],
     "m_Keywords": [],
@@ -155,6 +158,9 @@
         },
         {
             "m_Id": "1c9af072c8a246a7afe11566c16e2d4f"
+        },
+        {
+            "m_Id": "ef0ab4d5531e431b8d25422a0429c9d5"
         }
     ],
     "m_GroupDatas": [
@@ -596,6 +602,34 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "ef0ab4d5531e431b8d25422a0429c9d5"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "353b90447f504973a7945807fdaec3f6"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "ef0ab4d5531e431b8d25422a0429c9d5"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "af75a29dca3240d8a3061977711eb0d5"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "efed47ed10304ec69259fe5ee2c363b7"
                 },
                 "m_SlotId": 0
@@ -966,6 +1000,21 @@
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
     "m_SupportVFX": false
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "128a82958e454438b1ab7a71371b3354",
+    "m_Id": 0,
+    "m_DisplayName": "PupilsScale",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -2619,6 +2668,34 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "6e9117244519484ebc543b5d738909f6",
+    "m_Guid": {
+        "m_GuidSerialized": "db556696-91b1-4674-a2e9-79715d8495bb"
+    },
+    "m_Name": "PupilsScale",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "PupilsScale",
+    "m_DefaultReferenceName": "_PupilsScale",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 1.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "6fba069a5c304091860e942b3fb22e56",
@@ -3791,6 +3868,9 @@
         },
         {
             "m_Id": "179e4ad664f64c8d9a329a945bfef0da"
+        },
+        {
+            "m_Id": "6e9117244519484ebc543b5d738909f6"
         }
     ]
 }
@@ -4525,6 +4605,42 @@
         "m_Guid": ""
     },
     "m_DefaultType": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "ef0ab4d5531e431b8d25422a0429c9d5",
+    "m_Group": {
+        "m_Id": "3fb8b5780a48461cb2488ba89e0a17ab"
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -2864.000244140625,
+            "y": -525.0000610351563,
+            "width": 135.0,
+            "height": 34.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "128a82958e454438b1ab7a71371b3354"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "6e9117244519484ebc543b5d738909f6"
+    }
 }
 
 {
